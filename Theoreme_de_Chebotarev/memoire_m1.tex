@@ -1,0 +1,1505 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, latexsym, amsfonts,amssymb, amsthm,
+    amscd, geometry, xspace, enumerate,mathtools}
+\title{Le théorème de densité de Chebotarev}
+\date{Ann\'ee 2021-2022}
+\author{Bait Rayane}
+
+\setlength{\oddsidemargin}{-10mm}
+\setlength{\evensidemargin}{5mm}
+\setlength{\textwidth}{175mm}
+\setlength{\headsep}{0mm}
+\setlength{\topmargin}{0mm}
+\setlength{\textheight}{220mm}
+\setlength\parindent{24pt}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\rel}{\mathcal{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{{\K}}{\mathbb{K}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\B}{\mathcal{B}}
+
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\D}{\mathcal{D}}
+
+\theoremstyle{plain}
+\newtheorem{thm}[subsubsection]{Th\'eor\`eme}
+\newtheorem{lem}[subsubsection]{Lemme}
+\newtheorem{prop}[subsubsection]{Proposition}
+\newtheorem{propr}[subsubsection]{Propri\'et\'e}
+\newtheorem{cor}[subsubsection]{Corollaire}
+\newtheorem{intro}[section]{Introduction}
+\newtheorem{thm2}[subsection]{Th\'eor\`eme}
+\newtheorem{lem2}[subsection]{Lemme}
+\newtheorem{prop2}[subsection]{Proposition}
+\newtheorem{propr2}[subsection]{Propri\'et\'e}
+\newtheorem{cor2}[subsection]{Corollaire}
+
+\theoremstyle{definition}
+\newtheorem{defn}[subsubsection]{D\'efinition}
+\newtheorem{rmq}[subsubsection]{Remarque}
+\newtheorem{conj}[subsubsection]{Conjecture}
+\newtheorem{exmp}[subsubsection]{Exemples}
+\newtheorem{quest}[subsubsection]{Exercices}
+\newtheorem{defn2}[subsection]{D\'efinition}
+\newtheorem{rmq2}[subsection]{Remarque}
+\newtheorem{conj2}[subsection]{Conjecture}
+\newtheorem{exmp2}[subsection]{Exemples}
+\newtheorem{quest2}[subsection]{Exercices}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remarque}
+\newtheorem{note}{Note}
+
+\renewcommand*\contentsname{\begin{center}
+        Table des matières
+    \end{center}}
+
+\begin{document}
+\maketitle{}
+\begin{center}
+    Université de Paris\\
+    Sous la direction de Herblot Mathilde et Galateau Aurélien
+\end{center}
+\newpage
+
+\tableofcontents
+
+\newpage
+{\Large\bf 0 Introduction}\\
+\newline
+{\normalsize \indent Lors de l'étude de certains ensembles de nombres premiers
+    l'une des premières questions posées est : En existe-t-il une infinité ? Une
+    manière d'y répondre est d'en calculer la "proportion parmi tout les nombres
+    premiers" en un sens à préciser. Intuitivement si cette proportion n'est pas
+    nulle, notre ensemble est infini.\\ \indent Deux résultats utilisant cette
+    méthode sont présentés ici, le premier est le théorème de la progression
+    arithmétique de Dirichlet affirmant que dans toute progression arithmétique de
+    la forme $a+bn$ avec $pgcd(a,b)=1$, une infinité de nombres premiers apparaît.
+    Le second se présente comme suit : Soit $\K/\Q$ une extension finie galoisienne
+    de groupe de Galois $G$. À tout nombre premier $p$ qui ne se ramifie pas dans
+    $K$ correspond un morphisme $\sigma_p\in G$ défini à classe de conjugaison
+    près. On pose la question suivante. Soit $\sigma\in G$, existe-t-il une
+    infinité de nombres premiers $p$ tels que $\sigma\in C(\sigma_p)$, où
+    $C(\sigma_p)$ est la classe de conjugaison de $\sigma_p$ dans $G$ ? C'est à
+    cette question que le théorème de Chebotarev répond. \\ \indent Ce second
+    théorème est rencontré relativement tard en théorie algébrique des nombres,
+    beaucoup de résultats intermédiaires sont nécessaires à la compréhension des
+    outils utilisés dans sa preuve. On en fera donc ici qu'un rappel partiel et on
+    se référera au traitement de [2] des résultats classiques de théorie algébrique
+    des nombres (chapitre 1,2,3,4), le chapitre 2 consistera donc en des rappels de
+    ces chapitres. On admet en plus les résultats et définitions classiques de
+    théorie de Galois.
+    \indent  }
+\newpage
+\section{Le théorème de la progression arithmétique de Dirichlet}
+\indent Dans cette partie on admet des résultats bien connus sur les fonctions
+holomorphes ou les suites et séries de fonctions d'une variable complexe ainsi
+que sur la théorie des caractères. On suivra ici [1], chapitre 6. \\
+\indent\\\indent Le but de cette partie est de montrer le résultat suivant
+:\begin{thm}
+    Soit $a$ et $m$ deux entiers premiers entre eux. Alors il existe une infinité
+    de nombre premier $p$ tel que $$p\equiv a\mod m$$
+\end{thm}
+
+\noindent Qui peut être précisé comme suit avec la notion de densité :
+\begin{defn}
+    Soit $P$ l'ensemble des nombres premiers de $\N$ et $A$ un sous-ensemble de
+    $P$. On dira que $A$ a pour densité $d(A)$ lorsque la limite
+    $$\lim_{s\rightarrow1,~s>1}(\sum_{p\in A}\frac{1}{p^s})/(\ln\frac{1}{s-1})$$
+    existe et que cette limite vaut $d(A)$.
+\end{defn}
+
+\noindent Avec cette définition on voit alors que tout $A\subset P$ ayant une
+densité non nulle est infini, en effet si $A$ était fini la quantité
+$\sum_{p\in A}\frac{1}{p^s}$ serait finie et aurait alors pour densité $0$.\\
+
+\begin{thm}
+    Soit $a$ et $m$ deux entiers premiers entre eux et $P_a$ l'ensemble des nombres
+    premiers $p$ tels que $p\equiv a\mod m$, alors $P_a$ a une densité et sa
+    densité vaut $\frac{1}{\phi(m)}$, où $\phi(m)$ désigne la fonction indicatrice
+    d'Euler.
+\end{thm}
+
+\indent \newline \noindent La première sous partie constituera une base pour
+l'étude des fonctions $L$ et justifiera l'utilisation de cette définition pour
+la densité. La deuxième sous-partie permettra, à l'aide des propriétés des
+fonctions $L$, de donner un équivalent de $\sum_{p\in P_a}\frac{1}{p^s}$ pour
+$s\rightarrow 1$ et ainsi prouver le théorème $1.0.3.$\noindent Commencons par
+introduire quelques lemmes qui nous serons utiles par la suite.\begin{lem}
+    (Lemme d'Abel) Soient $(a_n)$ et $(b_n)$ deux suites. Posons :
+    $$A_{m,p}=\sum_{n=m}^{p}a_n~et~S_{m,m'}=\sum_{n=m}^{m'}a_nb_n$$
+    On a alors : $$S_{m,m'}=\sum_{n=m}^{m'-1}A_{m,n}(b_n-b_{n+1})+A_{m,m'}b_{m'}$$
+\end{lem}
+{\bf \noindent Preuve :} La preuve consiste à remplacer $a_n$ par
+$A_{m,n}-A_{m,n-1}$ puis à réorganiser les termes.
+
+\begin{lem}
+    Soient $0<\alpha<\beta$ et $z\in\C$ tel que \emph{Re}$(z)>0$. On a alors
+    :$$\lvert e^{-\alpha z}-e^{-\beta
+        z}\rvert\leq\lvert\frac{z}{\emph{Re}(z)}\rvert(e^{-\alpha
+            \emph{Re}(z)}-e^{-\beta \emph{Re}(z)})$$
+\end{lem}
+
+{\bf\noindent  Preuve :} On a $$e^{-\alpha z}-e^{-\beta
+    z}=z.\int_{\alpha}^{\beta}e^{-tz}dt$$ d'où en passant aux valeurs absolues
+$$\lvert e^{-\alpha z}-e^{-\beta z}\rvert~\leq~\lvert
+    z\rvert\int_{\alpha}^{\beta}e^{-t\emph{Re}(z)}=\lvert\frac{z}{\emph{Re}(z)}\rvert(e^{-\alpha
+        \emph{Re}(z)}-e^{-\beta \emph{Re}(z)})$$qui est le résultat voulu.\qed
+
+\subsection{Séries de Dirichlet et fonction zêta}
+
+\begin{defn} Soit $(\lambda_n)$ une suite strictement croissante de nombres
+    réels qui tend vers $+\infty$. On appelle série de Dirichlet d'exposants
+    $(\lambda_n)$ toute série de la forme :$$\sum a_ne^{-\lambda_ns}~
+        ,a_n\in\C,~s\in\C$$
+\end{defn}
+
+\noindent Soit $f(s)$ une série de Dirichlet où l'on aura supposé les
+$\lambda_n$ positifs. Les résultats que l'on montrera sur $f(s)$ seront
+toujours valables sur une série de Dirichlet quelconque car on peut se ramener
+à notre cas en supprimant un nombre fini de termes, on appellera à nouveau par
+$f(s)$ sa somme là ou elle converge. Pour $\rho\in\R$ on appelle $D(\rho)$ le
+demi plan ouvert $\{z\in\C\mid \emph{Re}(z)>\rho\}$ de $\C$.
+
+\begin{prop}
+    Si $f$ converge en $s_0$, elle converge uniformément sur $D(Re(s_0))$.
+\end{prop}
+
+{\bf \noindent	Preuve :} Quitte à remplacer $s$ par $s-s_0$ on peut supposer
+que $s_0=0$. L'hypothèse veut alors dire que $\sum a_n$ est convergente. Il
+suffit de prouver que $f(s)$ converge uniformément dès que $Re(s)>0$ et $\lvert
+    Arg(s)\rvert\leq\alpha$ où $\alpha<\frac{\pi}{2}$. On peut reformuler la
+deuxième hypothèse en $$\frac{\lvert
+        z\rvert}{\emph{Re}(z)}=\frac{1}{\cos(Arg(s))}\leq k$$ où $k\geq1$. Soit
+$\epsilon>0$. Comme $\sum a_n$ converge, il existe $N$ tel que $\lvert
+    A_{m,m'}\rvert\leq\epsilon$ dès que $m,m'\geq N$, les notations étant celles du
+lemme d'Abel. On applique celui-ci avec $b_n=e^{-\lambda_n s}$, on obtient :
+$$S_{m,m'}=\sum_{n=m}^{m'-1}A_{m,n}(e^{-\lambda_n
+            s}-e^{-\lambda_{n+1}s})+A_{m,m'}e^{-\lambda_{m'}s}$$ en prenant $m,m'\geq N$ et
+en passant aux valeurs absolues on a $$\lvert
+    S_{m,m'}\rvert\leq\epsilon(\sum_{n=m}^{m'-1}\lvert e^{-\lambda_n
+        s}-e^{-\lambda_{n+1}s}\rvert+1)$$
+enfin on applique le lemme 1.0.5 à chaque terme de la somme ce qui nous donne
+$$\lvert S_{m,m'}\rvert\leq\epsilon(\frac{\lvert
+        s\rvert}{Re(s)}\sum_{n=m}^{m'-1}\lvert e^{-\lambda_n
+            Re(s)}-e^{-\lambda_{n+1}Re(s)}\rvert+1)$$ puis $$\lvert
+    S_{m,m'}\rvert\leq\epsilon(k(e^{-\lambda_nm}-e^{-\lambda_nm'})+1)$$
+Et enfin $$\lvert S_{m,m'}\rvert\leq\epsilon(k+1)$$
+qui ne dépend plus de $s$ dans le domaine considéré d'où la convergence
+uniforme sur ce domaine puis sur $D(s_0)$.\qed \\
+\indent \\
+
+\noindent Dans la suite on laissera le cas général pour se concentrer sur le
+cas particulier des séries de Dirichlet proprement dites qui correspond au cas
+où $\lambda_n=\log(n)$, $f(s)$ aura donc la forme $\sum \frac{a_n}{n^s}$.
+
+\begin{prop}
+    Si $(a_n)$ est bornée, $f$ converge absolument et est holomorphe sur $D(1)$.
+\end{prop}
+
+\noindent Pour montrer cette proposition, on a besoin du lemme suivant
+:\begin{lem}
+    Soit $U$ un ouvert de $\C$, et soit $(f_n)$ une suite de fonctions holomorphes
+    sur $U$ qui converge uniformément sur tout compact vers une fonction $f$. La
+    fonction $f$ est alors holomorphe dans U.
+\end{lem}
+
+{\bf \noindent Preuve du lemme :} Soit $D$ un disque fermé contenu dans $U$, et
+soit $C$ son bord orienté dans le sens direct. D'après la formule de Cauchy, on
+a $$f_n(s_0)=\int_C\dfrac{f_n(s)}{s-s_0}ds $$ pour tout $s_0\in \mathring{D}$.
+Comme $D$ est compact, par l'hypothèse de convergence uniforme on obtient en
+passant à la limite $$f(s_0)=\int_C\dfrac{f(s)}{s-s_0}ds $$ d'où l'holomorphie
+de $f$ sur $\mathring{D}$ puis sur $U$.\qed \newline
+
+{\bf \noindent Preuve de la propostion :} Montrons que
+$\sum_{n\geq1}\frac{a_n}{n^s}$ converge absolument. Si les $a_n$ sont majorés
+par $M\in \R$ on a $$\sum_{n\geq1}\mid\frac{a_n}{n^s}\mid\leq
+    M.\sum_{n\geq1}\frac{1}{n^{\alpha}}$$
+où le terme de droite est une série de Riemann de paramètre $\alpha=Re(s)$,
+d'où la convergence absolue pour $s\in D(1)$.\qed \newline
+
+\begin{prop}
+    Si les $A_{m,p}=\sum_{n=m}^pa_n$ sont bornées, $f$ converge et est holomorphe
+    sur $D(0)$.
+\end{prop}{\bf \noindent  Preuve :} Supposons que pour tout $m,p\in\N$ on ait
+$\lvert A_{m,p}\rvert\leq K$. En appliquant le lemme d'Abel, on obtient
+$$\lvert S_{m,m'}\rvert\leq K(\sum_{m}^{m'-1}\lvert
+    \frac{1}{n^s}-\frac{1}{(n+1)^s}\rvert+\lvert\frac{1}{m'^s}\rvert)$$ il suffit
+de montrer la convergence pour $s$ réel, alors le résultat sera une conséquence
+de la proposition 1.1.2. Supposons donc $s$ réel, on peut enlever les valeurs
+absolues et simplifier l'expression ce qui donne $$\lvert S_{m,m'}\rvert\leq
+    K((\frac{1}{m^s}-\frac{1}{(m')^s})+\frac{1}{m'^s})$$ puis $$\lvert
+    S_{m,m'}\rvert\leq\frac{K}{m^s}$$ d'où la convergence en passant à la limite
+$m'\longrightarrow +\infty$.\qed
+
+\begin{defn}
+    Une fonction $g~:\N^*\longrightarrow\C$ est dite multiplicative si $$g(1)=1$$
+    et $$g(nm)=g(n)g(m)$$ dès que les entiers $n$ et $m$ sont premiers entre eux.
+\end{defn}
+\noindent Soit $g$ une fonction multiplicative et bornée. On suppose à partir
+de maintenant que $a_n=g(n)$, $f(s)$ est donc de la forme $\sum
+    \frac{g(n)}{n^s}$, elle converge absolument et est holomorphe sur $D(1)$ par
+les résultats précédents.\begin{lem}
+    Dans $D(1)$, $f(s)$ est égale au produit infini $$\prod_{p\in
+        P}(~\sum_{m\geq0}g(p^m)p^{-ms}~)$$
+\end{lem}{\bf \noindent Preuve :} Soit $S$ un sous-ensemble fini de $P$ et soit
+$N(S)$ l'ensemble des entiers non nuls dont tous les facteurs premiers sont
+dans $S$. Chaque élément $n\in N(S)$ s'écrit alors $n=\prod_{p\in
+        S}p^{\alpha_p}$ et on a $$\dfrac{g(n)}{n^s}=\prod_{p\in
+        S}g(p^{\alpha_p})p^{-\alpha_p s}$$ d'où en développant $$\prod_{p\in
+    S}(~\sum_{m\geq0}g(p^m)p^{-ms}~)$$ on voit que $\dfrac{g(n)}{n^s}$ apparaît une
+et une seule fois pour chaque $n\in N(S)$ et la somme en résultant est
+$$\sum_{n\in N(S)}\dfrac{g(n)}{n^s}$$ ce résultat étant vrai pour tout
+$S\subset ¨P$, lorsque $S$ tend vers $P$ le produit tend alors vers $f(s)$ qui
+est le résultat voulu.\qed
+
+\begin{lem}
+    Si maintenant $g$ vérifie $g(nm)=g(n)g(m)$ pour chaque paire d'entiers $(n,m)$,
+    on a : $$f(s)=\prod_{p\in P}\dfrac{1}{1-g(p)p^{-s}}$$
+    Il s'agit du produit eulérien de $f$.
+\end{lem}{\bf \noindent Preuve :} Pour tout $m\geq0$ et tout $p\in P$ on a :
+$$g(p^m)p^{-ms}=(g(p)p^{-s})^m$$ la série $\sum_{m\geq0}g(p^m)p^{-ms}$ est
+alors une série géométrique dont la somme vaut $\dfrac{1}{1-g(p)p^{-s}}$, d'où
+le résultat.\qed\\
+
+\noindent On introduit maintenant la fonction zêta de Riemann.\begin{defn}
+    On appelle fonction zêta de Riemann notée $\zeta$ la somme de la série
+    $\sum_{n\geq1}\frac{1}{n^s}$.
+\end{defn}
+\noindent On a vu qu'elle est bien définie et holomorphe sur $D(1)$, en effet
+on est dans le cas où $g\equiv 1$ qui est multiplicative au sens strict et
+bornée.
+\begin{prop}
+    (Produit Eulérien) Sur $D(1)$ on a :$$\zeta(s)=\prod_{p\in
+            P}\dfrac{1}{1-p^{-s}}$$
+\end{prop} {\bf \noindent Preuve :} On applique directement le lemme
+1.1.8..\qed
+
+\begin{prop}
+    On a :$$\zeta(s)=\frac{1}{s-1}+\Phi(s)$$ où $\Phi$ est holomorphe sur $D(0)$.
+\end{prop}{\bf \noindent Preuve :} On remarque que
+$$\frac{1}{s-1}=\int_1^{+\infty}t^{-s}dt=\sum_{n=1}^{+\infty}\int_{n}^{n+1}t^{-s}dt$$
+On peut donc écrire
+$$\zeta(s)=\frac{1}{s-1}+\sum_{n=1}^{+\infty}\Big(\frac{1}{n^s}-\int_{n}^{n+1}t^{-s}dt\Big)$$
+$$\quad\quad~
+    =\frac{1}{s-1}+\sum_{n=1}^{+\infty}\int_{n}^{n+1}(n^{-s}-t^{-s})dt$$ On pose
+alors $$\Phi_n(s)=\int_{n}^{n+1}(n^{-s}-t^{-s})dt\quad \text{et}\quad
+    \Phi(s)=\sum_{n=1}^{+\infty}\Phi_n(s)$$ On voudrait maintenant appliquer le
+lemme 1.1.4, chaque $\Phi_n$ est holomorphe sur $D(0)$ car $s\longmapsto
+    n^{-s}-t^{-s}$ est holomorphe pour tout $t\in[n,n+1]$. Montrons donc que
+$\sum_{n\geq1}\Phi_n(s)$ converge normalement sur tout compact de $D(0)$. Soit
+$K$ un compact de $D(0)$, on a : $$\lvert \Phi_n(s)\rvert\leq \sup_{s\in
+        K}\Big(\sup_{t\in[n,n+1]}\lvert n^{-s}-t^{-s}\rvert\Big)$$ mais
+$(n^{-s}-t^{-s})$ a pour dérivée $\dfrac{s}{t^{s+1}}$ de valeur absolue
+strictement monotone pour $t$ et atteignant son maximum en $t=n$, d'où $$\lvert
+    \Phi_n(s)\rvert\leq\sup_{s\in K}\Big(\dfrac{\lvert s\rvert}{n^{Re(s)+1}}\Big)$$
+puis la convergence normale découle du fait que $\Phi(s)$ est alors majorée par
+une série de Riemann de paramètre $Re(s)+1>1$ d'où le résultat.\qed
+\begin{cor}On a :
+    $$\zeta(s)\sim_{1} \dfrac{1}{s-1}$$
+\end{cor}{\bf \noindent Preuve :}Par la proposition précédente $\Phi$ reste
+bornée dans un voisinage de $1$, d'où le résultat.\qed\\\indent\\ À partir de
+maintenant on appellera par $\log$ la branche principale du logarithme qui peut
+être définie par
+$\log\Big(\dfrac{1}{1-\alpha}\Big)=\sum_{n=1}^{+\infty}\dfrac{\alpha^n}{n}$
+pour $\lvert\alpha\rvert<1$. Alors $\log$ est bien définie sur $D(0)$,
+$\log(1)=0$ et on peut vérifier que
+$$\log\Big(\dfrac{1}{(1-\alpha)(1-\beta)}\Big)=\log\Big(\dfrac{1}{1-\alpha}\Big)+\log\Big(\dfrac{1}{1-\beta}\Big)$$
+pour $\lvert\alpha\rvert,\lvert\beta\rvert<1$.
+\begin{cor}
+    Lorsque $s\rightarrow 1$ on a :$$\sum_{p\in P}p^{-s}\sim
+        \log\Big(\frac{1}{s-1}\Big)$$ tandis que $$\sum_{p\in
+            P,n\geq1}\frac{(p^{-s})^n}{n}$$ reste bornée.
+\end{cor}{\bf \noindent Preuve :} Soit $s\in D(1)$, on va faire tendre $s$ vers
+$1$ dans $D(1)$ donc on peut le supposer dans un petit voisinage de $1$. La
+quantité $\log\dfrac{1}{s-1}$ est alors bien définie et on a par le produit
+Eulérien de $\zeta$ (proposition 1.1.10): $$\log\zeta(s)=\log\Big(\prod_{p\in
+        P}\dfrac{1}{1-p^{-s}}\Big)$$ $$\qquad\qquad\quad=\sum_{p\in
+        P}\log\Big(\dfrac{1}{1-p^{-s}}\Big)$$ $$~\quad\qquad=\sum_{p\in
+        P,n\geq1}\frac{(p^{-s})^n}{n}$$ $$\qquad\qquad\qquad\qquad=\sum_{p\in
+        P}p^{-s}~+\sum_{p\in P,n\geq2}\frac{(p^{-s})^n}{n}$$ comme $\log\zeta(s)\sim_1
+    \log(\frac{1}{s-1})$ il suffit de montrer que $\sum_{p\in
+        P,n\geq2}\frac{(p^{-s})^n}{n}$ reste bornée dans un voisinage de $1$ alors on
+aura $\sum_{p\in P}p^{-s}\sim_1 \log(\frac{1}{s-1})$ qui est le résultat voulu.
+Mais on a les majorations suivantes $$\sum_{p\in
+        P,n\geq2}\left|\frac{(p^{-s})^n}{n}\right|\leq\sum_{p\in
+        P,n\geq2}\left|(p^{-s})^n\right|$$ $$\qquad\qquad~\leq\sum_{p\in
+        P}\left|p^{-2s}\right|$$ $$\qquad\qquad\qquad\qquad\leq\sum_{p\in
+        P}\left|p^{-s}(p-1)^{-s}\right|$$ $$\qquad\qquad\qquad\qquad\leq\sum_{p\in
+        P}p^{-1}(p-1)^{-1}$$
+$$\qquad\qquad\qquad\qquad\qquad\leq\sum_{n=2}^{+\infty}n^{-1}(n-1)^{-1}=1$$ en
+effet la série $\sum_{n\geq2}n^{-1}((n-1)^{-1})=\sum_{n\geq1}(n+1)^{-1}n^{-1}$
+est convergente et le calcul s'effectue en remarquant que
+$$(n+1)^{-1}n^{-1}=n^{-1}-(n+1)^{-1}$$ d'où le résultat.\qed\\
+\indent\\\noindent Cet équivalent permet alors de donner du sens à la
+définition de densité introduite en début de partie. Il existe en fait une
+notion de densité dite naturelle que l'on définit de la manière suivante : Si
+$A$ est un ensemble de nombre premier, on définit la densité naturelle de $A$
+comme la limite de $\dfrac{\lvert A\cap[1,n]\rvert}{P\cap[1,n]}$ lorsque
+$n\rightarrow \infty$. Même si celle-ci semble être la "bonne" notion de
+densité, elle n'existe pas toujours et est bien plus difficile à calculer que
+celle de Dirichlet. De plus on peut montrer que si celle-ci existe elle
+coïncide avec la densité de Dirichlet.
+
+\subsection{Fonctions L de Dirichlet}
+Soit $m\geq1$ un entier. On note $G(m)$ le groupe des inversibles de $\Z/m\Z$
+et $\widehat{G(m)}$ son dual, qui correspond à l'ensemble des caractères de
+degré $1$ sur $G(m)$. $G(m)$ est un groupe abélien fini d'ordre $\phi(m)$ (où
+$\phi$ désigne l'indicatrice d'Euler). On note $\overline{n}$ la classe de
+$n\in\Z$ dans $G(m)$. \begin{defn}On appelle caractère modulo $m$ un caractère
+    $\chi$ de $G(m)$ que l'on étend à $\Z$ en posant $$\chi(n)=\chi(\overline{n})
+        \quad\text{si } n\text{ est premier à }m,~\chi(n)=0\quad\text{sinon}.$$
+\end{defn}
+
+\noindent On peut maintenant introduire les fonctions $L$ de Dirichlet. Soit
+$\chi$ un caractère modulo $m$.
+\begin{defn}
+    On appelle fonction L de Dirichlet correspondant à $\chi$ et $m$ la série de
+    Dirichlet définie par $$L(s,\chi):=\sum_{n=1}^{+\infty}\dfrac{\chi(n)}{n^s}$$
+\end{defn}
+
+\noindent Remarquons que $L(s,\chi)$ est une série de Dirichlet proprement dîte
+telle que $a_n=\chi(n)$ où $\chi$ est multiplicative au sens strict et bornée.
+Lorsque $\chi=1$, on a $$L(s,1)=\prod_{p\mid m}(1-p^{-s})\zeta(s)$$ qui est le
+produit d'une fonction holomorphe et non nulle sur $D(0)$ avec $\zeta$ qui est,
+on l'a vu, méromorphe sur $D(0)$ avec un seul pôle simple en $1$ d'où $L(s,1)$
+est méromorphe sur $D(0)$ avec un unique pôle simple en $1$. \\\indent De plus
+lorsque $\chi\ne1$ les sommes $A_{u,v}$ (avec les notations du lemme d'Abel)
+sont bornées par $\phi(m)$. Montrons le dernier point. On peut supposer
+$(v-u)<m$, en effet par la proposition 1.2.2, on a
+$$\sum_{n=u}^{u+m-1}\chi(n)=0$$ Si maintenant $x\in \Z$ est premier à $m$ alors
+$$\chi(x^{\phi(m)})=\chi(x)^{\phi(m)}=\chi(\overline{x}^{\phi(m)})=\chi(1)=1$$
+d'où $\chi(x)$ est une racine $\phi(m)$-ème de l'unité. En particulier
+$\left|\chi(x)\right|\leq1$ pour tout $x\in \Z$ d'où
+$$\left|\sum_{n=u}^{v}\chi(n)\right|\leq\sum_{n=u}^{v}\left|\chi(n)\right|\leq\phi(m)$$
+qui est le résultat voulu. Par les propositions 1.1.3., 1.1.5. et le lemme
+1.1.8. $L(s,\chi)$ converge absolument et est holomorphe sur $D(1)$, converge
+et est holomorphe sur $D(0)$ et dans $D(1)$ on a : $$L(s,\chi)=\prod_{p\in
+        P}\dfrac{1}{1-\chi(p)p^{-s}}$$ Dans la suite, si $p$ est premier et ne divise
+pas $m$ on notera $o(p)$ l'ordre de $\overline{p}$ dans $G(m)$ et
+$q(p)=\phi(m)/o(p)$ qui est l'ordre du groupe quotient
+$G(m)/<\overline{p}>$.\begin{lem}
+    Si $p$ ne divise pas $m$, on a l'identité
+    $$\prod_{\chi\in\widehat{G(m)}}(1-\chi(p)T)=(1-T^{o(p)})^{q(p)}$$
+\end{lem}{\bf \noindent Preuve :} Soit $U_{k}$ l'ensemble des racines $k$-èmes
+de l'unité, on a : $$\prod_{w\in U_{o(p)}}(1-wT)=1-T^{o(p)}$$ de plus on sait
+par la théorie des caractères que l'opération de restriction de
+$\chi\in\widehat{G(m)}$ dans $\widehat{<\overline{p}>}$ est un homomorphisme
+surjectif de noyau les caractères triviaux sur $<\overline{p}>$, d'où la suite
+exacte courte
+$$\{1\}\rightarrow\widehat{\dfrac{G(m)}{<\overline{p}>}}\rightarrow\widehat{G(m)}\rightarrow\widehat{<\overline{p}>}\rightarrow{1}$$Et
+il existe un unique caractère $\chi_1$ de $<\overline{p}>$ tel que
+$\chi_1(p)=w$ pour chaque $w\in U_{o(p)}$ que l'on peut étendre en
+$\overline{\chi_1}$ un caractère de $G(m)$. Enfin l'application
+$\chi\longrightarrow \chi.\overline{\chi_1}^{-1}$ est une bijection de
+$\widehat{G(m)}$ dans lui même et envoie le noyau de la restriction sur
+l'ensemble des caractères $\chi$ de $G(m)$ tels que $\chi(\overline{p})=w$.
+D'où il existe exactement $q(p)$ caractères tels que $\chi(\overline{p})=w$. En
+mettant en commun les deux résultats on obtient directement le résultat
+voulu.\qed \\\indent\\
+
+\noindent On définit maintenant la fonction $\zeta_m(s)$ comme le produit
+$$\zeta_m(s):=\prod_{\chi\in \widehat{G(m)}}L(s,\chi)$$On a la proposition
+suivante :\begin{prop}
+    On a :$$\zeta_m(s)=\prod_{p\nmid m}\dfrac{1}{(1-\dfrac{1}{p^{o(p)s}})^{q(p)}}$$
+    C'est une série de Dirichlet à coefficients entiers positifs, convergeant dans
+    $D(1)$.
+\end{prop}{\bf \noindent Preuve :} On va appliquer le lemme 1.2.3. avec
+$T=p^{-s}$, rappelons que $\chi(p)=0$ lorsque $p\mid m$, on a :$$\prod_{\chi\in
+        \widehat{G(m)}}L(s,\chi)=\prod_{\chi\in \widehat{G(m)}}\big(\prod_{p\in
+        P}\dfrac{1}{1-\chi(p)p^{-s}}\Big)$$ $$~~\qquad\quad\qquad=\prod_{p\in
+        P}\Big(\prod_{\chi\in \widehat{G(m)}}\dfrac{1}{1-\chi(p)p^{-s}})$$
+$$~\qquad\quad=\prod_{p\nmid m}\dfrac{1}{(1-p^{-o(s)s})^{q(p)}}$$Qui est le
+résultat voulu. Le produit converge dans $D(1)$ comme produit de séries de
+Dirichlet convergentes dans $D(1)$.\\ \qed
+
+\noindent En développant le produit on voit que $\zeta_m$ est une série de
+Dirichlet à coefficients positifs puis qu'elle est holomorphe sur $D(1)$. Cette
+remarque est importante car pour prouver le prochain théorème on va avoir
+besoin du lemme suivant sur les séries de Dirichlet à coefficients positifs.
+\begin{lem}
+    Soit $f$ une série de Dirichlet à coefficients positifs. Supposons que $f$
+    converge sur $D(\rho)$ et qu'elle est prolongeable analytiquement en un
+    voisinage de $\rho$. Alors il existe $\epsilon>0$ tel que $f$ converge sur
+    $D(\rho-\epsilon)$.
+\end{lem}
+{\bf \noindent Preuve :} Pour une preuve du lemme, on pourra se référer à [1]
+p.112.\qed
+
+\indent \newline La première étape de la preuve du théorème qui nous interesse
+consiste en le théorème suivant :
+
+\begin{thm}
+    \begin{itemize}\indent\\
+        \item $\zeta_m$ a un pôle simple pour $s=1$.
+        \item $L(1,\chi)\ne0$ pour tout $\chi\ne1$
+    \end{itemize}
+\end{thm}{\bf \noindent Preuve :} Remarquons que le second point implique le
+premier. En effet on a vu en début de partie que $L(s,1)$ a un pôle en $s=1$,
+alors si $L(1,\chi)\ne0$ pour $\chi\ne1$, $\zeta_m$ à un pôle en $s=1$.
+Montrons donc le second point. On procède par l'absurde, supposons que pour un
+$\chi\ne1$ on ait $L(1,\chi)=0$. La fonction $\zeta_m$ serait alors holomorphe
+en $s=1$, comme les $L(s,\chi)$ sont holomorphes sur $\D(0)\backslash\{1\}$,
+$\zeta_m$ serait holomorphe sur $D(0)$. Par le lemme 1.2.5. on peut donc
+reculer son domaine de convergence à $D(0)$. On considère maintenant $p\in P$,
+on a
+$$\sum_{n=0}^{+\infty}p^{-n\phi(m)s}=\sum_{n=0}^{+\infty}p^{-no(p)q(p)s}\leq\Big(\sum_{n=0}^{+\infty}p^{-no(p)s}\Big)^{q(p)}=\dfrac{1}{(1-p^{-o(p)s})^{q(p)}}$$
+$\zeta_m$ étant le produit du deuxième terme pour tout $p\nmid m$, par le même
+procédé de majoration la série $\zeta_m$ aurait tout ses coefficients
+supérieurs à ceux de la série : $$\sum_{(n,m)=1}n^{-\phi(m)s}$$ qui diverge
+pour $s=1/\phi(m)$ d'où le résultat voulu.\qed
+
+\subsection{Le théorème de Dirichlet}
+Comme vu en début de chapitre, le but de cette partie sera de déterminer un
+équivalent de $g_a(s):=\sum_{p\in P_a}p^{-s}$ pour $s\rightarrow 1$ et ainsi
+déterminer la densité de $P_a$. Soit $\chi$ un caractère modulo $m$. On pose
+$$f_{\chi}(s)=\sum_{p\nmid m}\chi(p)p^{-s}$$\begin{lem}
+    $f_{\chi}$ converge sur $D(1)$ et on a:\begin{itemize}
+        \item Si $\chi=1$, $f_\chi\sim_1 log(1/(s-1))$.
+        \item Si $\chi\ne1$, $f_{\chi}$ reste bornée lorsque $s\rightarrow1$.
+    \end{itemize}
+\end{lem}{\bf \noindent Preuve :} Le premier point est une conséquence directe
+de la première partie du corollaire 1.1.13 car $f_{\chi}(s)$ ne diffère de
+$\sum_{p\in P}p^{-s}$ que par un nombre fini de termes. Le second point est une
+conséquence de la seconde partie du même corollaire. En effet, on a $$\log
+    L(s,\chi)=f_{\chi}(s)+F_{\chi}(s))$$ avec
+$F_{\chi}(s)=\sum_{p,n\geq2}\chi(p)^n(np)^{-ns}$ mais
+$$\left|F_{\chi}(s)\right|\leq\sum_{p\in P,n\geq2}(np)^{-ns}$$ de plus par le
+théorème $1.2.5.b)$ $L(1,\chi)\ne0$ donc $\log L(s,\chi)$ et $F_{\chi}(s)$
+restent bornées quand $s\rightarrow1$, il en est donc de même pour
+$f_{\chi}(s)$.\qed \begin{lem}
+    On a
+    :$$g_a(s)=\dfrac{1}{\phi(m)}\sum_{\chi\in\widehat{G(m)}}\chi(a)^{-1}f_{\chi}(s)$$
+\end{lem}{\bf \noindent Preuve :} On a
+$$\sum_{\chi\in\widehat{G(m)}}\chi(a)^{-1}f_{\chi}(s)=\sum_{p\nmid
+        m}\Big(\sum_{\chi\in\widehat{G(m)}}\chi(a^{-1}p)\Big)p^{-s}$$ mais les
+relations d'orthogonalité des caractères de $G(m)$ donnent
+$$\sum_{\chi\in\widehat{G(m)}}\chi(a^{-1}p)=\phi(m)\quad \text{si}\quad
+    a^{-1}p\equiv1\mod m$$ $$=0~\qquad~\text{sinon.}$$ on a donc bien
+$$g_a(s)=\dfrac{1}{\phi(m)}\sum_{\chi\in\widehat{G(m)}}\chi(a)^{-1}f_{\chi}(s).$$\qed
+
+On peut maintenant prouver le théorème :\begin{thm}
+    L'ensemble $P_a$ a une densité et sa densité vaut $\dfrac{1}{\phi(m)}$.
+\end{thm}
+\begin{cor}
+    L'ensemble $P_a$ est infini.
+\end{cor}{\bf \noindent Preuve :} Par le lemme 1.3.2.
+$$g_a(s)=\dfrac{1}{\phi(m)}\sum_{\chi\in\widehat{G(m)}}\chi(a)^{-1}f_{\chi}(s)$$
+mais par le lemme 1.3.1.
+$$\sum_{\chi\in\widehat{G(m)}}\chi(a)^{-1}f_{\chi}(s)\sim \log\dfrac{1}{s-1}$$
+pour $s\rightarrow1$ d'où $$g_a(s)\sim \dfrac{1}{\phi(m)}\log\dfrac{1}{s-1}$$
+ce qui veut bien dire que $P_a$ a pour densité $\dfrac{1}{\phi(m)}$.\qed
+
+\subsection{Une application du théorème de Dirichlet}
+Il existe de nombreuses applications du théorème de la progression arithmétique
+de Dirichlet, ici nous traitons un résultat basique de la théorie de Galois
+inverse qui se trouve être une conséquence de ce théorème. La question est la
+suivante : Soit $G$ un groupe. Existe-t-il une extension galoisienne $L$ de
+$\Q$ de groupe de Galois $G$ ? La plus grande conjecture à ce sujet est la
+suivante : Tout groupe fini est le groupe de Galois d'une extension galoisienne
+des nombres rationnels. On se restreint ici au cas bien plus modeste où $G$ est
+abélien fini.
+
+Soit donc $G$ un groupe abélien fini, c'est un $\Z$-module de type
+fini. Grâce au théorème de structure sur les $Z$-modules de type fini, on peut
+supposer que G est de la forme $$\bigoplus_i \Z_{q_i^{\beta_i}}$$ où les $q_i$
+sont des nombres premiers non nécessairement distincts. On veut montrer qu'il
+existe une extension galoisienne de groupe de Galois $G$. Il suffit de faire
+apparaître $\bigoplus_i \Z_{q_i^{\beta_i}}$ dans $$(\Z_m)^*\cong\Z_n\times
+    \prod_{i=1}^{k}Z_{p_i-1}$$ où $n=\prod_{i=1}^{k}p_i^{\alpha_i}$ est un entier
+décomposé en produit de facteurs premiers. Comme les $\Z_{p_i-1}$ sont
+cycliques il suffit de trouver des $p_i$ tels que $q_i^{\beta_i}$ divise
+$p_i-1$ (condition $(*)$)alors $\bigoplus_i \Z_{q_i^{\beta_i}}$ sera un sous
+groupe de $\prod_i\Z_{p_i-1}$ correspondant à un groupe de Galois. En effet, si
+on considère $\zeta$ une racine primitive $m$-ème de l'unité dans $\C$ alors on
+sait par le cours que $\Q(\zeta)/\Q$ a pour groupe de Galois
+$G_1\cong(\Z_m)^*$, le théorème de correspondance de Galois fournira alors un
+corps $E$ tel que $\Q\subset E\subset \Q(\zeta)$ et $Gal(\Q(\zeta)/E)\cong G$
+qui est le résultat voulu. \\ \indent On réécrit la condition $(*)$ en
+$$\forall i=1,...,N \quad \exists p_i>q_i^{\beta_i}\quad et\quad  p_i\equiv
+    1\mod q_i^{\beta_i}$$ qui est une conséquence immédiate du théorème de la
+progression arithmétique de Dirichlet appliqué à $q_i^{\beta_i}$ et $1$ d'où le
+résultat.
+
+\section{Anneaux d'entiers de corps de nombres}
+On rappelle ici quelques définitions et résultats sans preuve qui nous serons
+utiles par la suite. Les anneaux sont supposés commutatifs et unitaires.
+
+\subsection{Anneaux d'entiers}
+
+\begin{defn}
+    Soit $R$ un anneau et $A$ un sous-anneau de $R$.\begin{itemize}
+        \item On dit que $x\in R$ est entier sur $A$ si il existe $P\in A[X]$
+              unitaire tel que $P(x)=0$.
+        \item L'ensemble des éléments $x\in R$ entiers sur $A$ forment un sous
+              anneau $A'$ de $R$ que l'on appelle fermeture intégrale de $A$ dans $R$.
+        \item On dit que $A$ est intégralement clos s'il est intègre et que sa
+              fermeture intégrale dans son corps des fractions est $A$ lui-même.
+    \end{itemize}
+\end{defn}
+
+\begin{prop}Soit $R$ un anneau et $A$ un sous anneau de $R$.
+    Les propriétés suivantes sont équivalentes :\begin{itemize}
+        \item $x\in R$ est entier sur $A$.
+        \item Il existe $B$ un sous $A$-module de type fini de $R$ tel que $x\in
+                  B$.
+    \end{itemize}
+
+\end{prop}
+
+\begin{prop}
+    Soit $R$ un anneau intègre et $A$ un sous-anneau de $R$ tel que $R$ est entier
+    sur $A$. Alors $A$ est un corps si et seulement si $R$ est un corps.
+\end{prop}
+
+\begin{defn}
+    Soit $R$ un anneau et $A$ un sous-anneau de $R$ tel que $R$ est un $A$-module
+    libre de rang $n$.\begin{itemize}
+        \item On appelle trace de $x\in R$ la trace de la multiplication par $x$ en
+              tant qu'endomorphisme du $A$-module $R$. On la note $Tr_{R/A}(x)$ ou $Tr(x)$
+              lorsque le contexte est clair.
+        \item On appelle norme de $x\in R$ le déterminant de la multiplication par
+              $x$ en tant qu'endomorphisme du $A$-module $R$. On la note $N_{R/A}(x)$ ou
+              $N(x)$ lorsque le contexte est clair.
+        \item Pour toute famille $(x_1,...,x_n)\in R^n$ on définit le discriminant
+              de cette famille par $$D(x_1,...,x_n)=det((Tr(x_ix_j))_{1\leq i,j\leq n})$$
+    \end{itemize}
+\end{defn}
+
+\begin{prop}
+    Soient $K/L$ une extension séparable de degré $n$, $x$ un élément de $L$ et $P$
+    son polynôme minimal dans $K$. La trace et la norme de $x$ sont entières sur
+    $A$ et en notant $x_1,...,x_n$ les racines de $P$ on a $$Tr(x)=x_1+...+x_n$$ et
+    $$N(x)=x_1...x_n$$
+\end{prop}
+
+\noindent La proposition 2.1.6. que l'on montre à l'aide de 2.1.5. sera utile
+lors du prochain chapitre.
+\begin{prop}
+    Dans les mêmes conditions que précédemment. En notant $\sigma_1,...,\sigma_n$
+    les $n$ $K$-plongements de $L$ dans une de ses clôtures algébriques, on a pour
+    toute $K$-base $(x_1,...,x_n)$ de $L$
+    $$D(x_1,...,x_n)=det((\sigma_i(x_j))_{1\leq i,j\leq n})\ne0.$$
+\end{prop}
+
+\begin{defn}
+    Soit $R$ un anneau et $A$ un sous-anneau de $R$ tel que $R$ est un $A$-module
+    libre de rang $n$. On appelle discriminant de $R$ sur $A$ et note $\mathfrak
+        D_{R/A}$ l'idéal engendré par le discriminant d'une $A$-base de $R$.
+\end{defn}
+
+\noindent Le discriminant de $R$ sur $A$ est bien défini car on montre par un
+bref calcul que si $(x_1,...,x_n)$ et $(y_1,...y_n)$ sont deux $A$-bases de $R$
+alors $D(x_1,...,x_n)=p^2D(y_1,...,y_n)$ où $p$ est le déterminant de la
+matrice de passage de $(x_1,...,x_n)$ à $(y_1,...,y_n)$ alors $p\in A^{\times}$
+et ils définissent donc le même idéal.
+
+\begin{thm}
+    Soient $A$ un anneau intégralement clos de caractéristique $0$, $K$ son corps
+    des fractions, $L$ une extension finie de degré $n$ de $K$ et $R$ la fermeture
+    intégrale de $A$ dans $L$. Alors $R$ est un sous $A$-module d'un $A$-module
+    libre de rang $n$ et contient une base de $L$ sur $K$.
+\end{thm}
+
+\subsection{Modules noethérien et anneau de Dedekind}
+\begin{defn}
+    On dit qu'un module est noethérien si tout ses idéaux sont de types fini.
+\end{defn}
+
+\noindent En particulier on dit qu'un anneau est noethérien si ses idéaux sont
+de type finis.
+
+\begin{prop}
+    Si $A$ est un anneau noethérien et $E$ un $A$-module de type fini alors $E$
+    est noethérien.
+\end{prop}
+
+\begin{lem}
+    Dans un anneau noethérien, tout idéal contient un produit d'idéaux premiers.
+\end{lem}
+
+\begin{defn}
+    On appelle anneau de Dedekind tout anneau noethérien, intégralement clos dont
+    les ideaux premiers non nuls sont maximaux.
+\end{defn}
+
+\begin{thm}
+    Soient $A$ un anneau de Dedekind de caractéristique $0$, $K$ son corps des
+    fractions, $L$ une extension finie de $K$ et $R$ la fermeture intégrale de $A$
+    dans $L$. Alors $B$ est un anneau de Dedekind et un $A$-module de type fini.
+\end{thm}
+
+\begin{defn}
+    Soient $A$ un anneau de Dedekind, $K$ son corps des fractions. On appelle idéal
+    fractionnaire de $A$ tout $A$-module de type fini contenu dans $K$. On note
+    $I(A)$ l'ensemble des idéaux fractionnaires de $A$. On dit de plus qu'un idéal
+    fractionnaire est entier s'il est contenu dans $A$. On note de plus $P(A)$
+    l'ensemble des idéaux fractionnaires principaux de $A$.
+\end{defn}
+
+\noindent On appelle $\mathfrak A(A)$ l'ensemble des idéaux premiers de $A$.
+
+\begin{thm}
+    Soient $A$ un anneau de Dedekind. L'ensemble $ I(A)\backslash\{0\}$ est un
+    groupe pour la multiplication usuelle des idéaux. De plus, tout idéal
+    fractionnaire non nul $I$ de $A$ s'écrit de manière unique sous la forme
+    $$I=\prod_{\mathfrak p\in \mathfrak A(A)}\mathfrak p^{n_{\mathfrak p}(I)}$$ où
+    les $n_{\mathfrak p}(I)$ sont des entiers relatifs presque tous nuls.
+\end{thm}
+
+\noindent Dans le cas des corps de nombre, l'anneau des entiers de ces corps
+sont par définition des fermetures intégrales de $\Z$ dans des extensions
+finies de $\Q$. Ce sont donc des anneaux de Dedekind par le théorème 3.2.2.
+donc le théorème 3.2.4. s'applique.
+
+\section{Discriminant et ramification}
+Dans la suite $A$ est un anneau intègre de caractéristique 0, $K$ son corps des
+fractions, $L$ une extension de degré $n$ de $K$ et $R$ la fermeture intégrale
+de $A$ dans $L$.
+\subsection{Localisation dans un anneau de Dedekind}
+On rappelle ici quelques résultats sur la localisation dans les anneaux de
+Dedekind.
+
+\begin{prop}
+    Soit $S$ une partie multiplicative de $A$. Alors $S^{-1}R$ est la fermeture
+    intégrale de $S^{-1}A$ dans $L$.
+\end{prop}
+\begin{prop}
+    On suppose que $A$ est un anneau de Dedekind. Alors, $S^{-1}A$ est un anneau de
+    Dedekind.
+\end{prop}
+\begin{prop}
+    Soit $\mathfrak p $ un idéal premier non nul de $A$ et $S=A\backslash \mathfrak
+        p$. Alors $S^{-1}A$ est principal et il existe $p$ premier de $S^{-1}A$ tel que
+    les idéaux de $S^{-1}A$ sont exactement les $(p^n)n\geq1$.
+\end{prop}
+\noindent La prochaine proposition rend compte de l'utilité de la localisation
+dans les anneaux de Dedekind, en effet en combinant celle ci avec 3.1.3. on
+pourra toujours se ramener au cas principal ce qui sera particulièrement utile
+dans la prochaine partie.
+\begin{prop}
+    Soit $S$ une partie multiplicative de $A$ et $\mathfrak m$ un idéal maximal de
+    $A$ tel que $\mathfrak m\cap S=\emptyset$. Alors $$S^{-1}A/\mathfrak
+        mS^{-1}A\cong A/\mathfrak m$$
+\end{prop}
+\subsection{Décomposition des idéaux premiers dans une extension}
+Soit $A$ un anneau de Dedekind de caractéristique $0$, $K$ son corps des
+fractions, $L$ une extension de degré $n$ de $K$ et $R$ la fermeture intégrale
+de $A$ dans $L$. Par le théorème 2.2.5., $R$ est un anneau de Dedekind. Soit
+$\mathfrak p$ un idéal premier non nul de $A$. On peut décomposer l'idéal
+$R\mathfrak p$ en produits d'idéaux premiers entiers de $R$
+$$\prod_{i=1}^q\mathfrak P_i^{e_i}$$ avec $e_i\geq1$ pour chaque $i$.
+
+\begin{prop}
+    Si $\mathfrak D$ est un idéal premier de $R$ tel que $R\mathfrak
+        p\mathfrak\subset\mathfrak D$ alors $\mathfrak D=\mathfrak P_i$ pour un certain
+    $i$.
+\end{prop}
+
+{\noindent \bf Preuve :} Soit $\mathfrak P$ un idéal premier de $R$. La
+condition $R\mathfrak p\subset \mathfrak D$ implique $R\mathfrak p\mathfrak
+    D^{-1}\subset A$ d'où $n_{\mathfrak P}(R\mathfrak p)\geq\mathfrak n_{\mathfrak
+            P}(\mathfrak D)\geq 0$ pour tout $\mathfrak P\in \mathfrak A(R)$. Le résultat
+en découle directement. \qed \\
+
+\noindent Notons que si $R\mathfrak p\subset \mathfrak D$ alors $R\mathfrak
+    p\cap A\subset \mathfrak D\cap A$ or $R\mathfrak p\cap A=\mathfrak p$ est
+maximal donc $\mathfrak p=\mathfrak D\cap A$. D'où $$ A\rightarrow R\rightarrow
+    R/\mathfrak P_i$$ a pour noyau $\mathfrak p$ donc $A/\mathfrak p$ s'identifie à
+un sous-anneau de $R/\mathfrak P_i$. Enfin par 3.2.2. ces deux anneaux sont des
+corps et $R$ est un $A$-module de type fini donc $R/R\mathfrak p$ est un
+$A/\mathfrak p$-espace vectoriel de dimension finie. On définit maintenant deux
+nouvelles quantités.
+
+\begin{defn}
+    On appelle degré résiduel de $\mathfrak P_i$ sur $A$ la dimension du
+    $A/\mathfrak p$-espace vectoriel $R/\mathfrak P_i$.
+
+\end{defn}
+
+\begin{defn}
+    On appelle indice de ramification de $\mathfrak P_i$ sur $A$ l'exposant $e_i$
+    de la décomposition de $R\mathfrak p$ dans $R$.
+\end{defn}
+
+\noindent Enfin, remarquons que $R\mathfrak p\cap A=\mathfrak p$. En effet
+l'inclusion $\supset$ est claire. D'un autre côté $R\mathfrak p\cap A$ est un
+idéal de $A$ qui contient un idéal maximal, comme $1\notin R\mathfrak p$,
+$\subset$ est vraie. D'où $R/R\mathfrak p$ est un $A/\mathfrak p$-espace
+vectoriel de dimension finie par le même argument que précédemment. Pour $K$ un
+corps et $L$ une extension finie de $K$ on note $[L:K]$ la dimension de $L$ en
+tant que $K$-espace vectoriel.
+
+\begin{thm}
+    Avec les notations précédentes on a $\sum_{i=1}^q e_if_i=[R/R\mathfrak p :
+        A/\mathfrak p]=n$
+\end{thm}
+En fait, on verra dans la prochaine partie que si $L/K$ est galoisienne, alors
+$e_1=e_2=...=e_q$ et $f_1=f_2=...=f_q$ d'où $n=efq$ en notant $e=e_1$ et
+$f=f_1$.
+
+    {\bf \noindent Preuve :} Pour la première égalité, remarquons que tout quotient
+de la forme $$\mathfrak B/\mathfrak B\mathfrak P_i,$$ où $\mathfrak B$ est un
+produit d'idéaux de la forme $\mathfrak P_1^{e_1}...\mathfrak
+    P_{i-1}^{e_{i-1}}\mathfrak P_{i}^{k}$ avec $0\leq k\leq q$, est un $R$-module
+annulé par $\mathfrak P_i$ d'où $\mathfrak B/\mathfrak B\mathfrak P_i$ est un
+$R/\mathfrak P_i$-espace vectoriel et on a l'isomorphisme d'espaces vectoriels
+suivant $$R/R\mathfrak p\cong R/\mathfrak P_1\bigoplus \mathfrak P_1/\mathfrak
+    P_1^2\bigoplus...\bigoplus \mathfrak P_1^{e_1}/\mathfrak P_1^{e_1}\mathfrak
+    P_2\bigoplus...\bigoplus \mathfrak P_1^{e_1}...\mathfrak P_q^{e_q-1}/\mathfrak
+    P_1^{e_1}...\mathfrak P_q^{e_q}$$ en plus $\mathfrak B/\mathfrak B\mathfrak
+    P_i$ est un espace vectoriel de dimension $1$ sur $R/\mathfrak P_i$ car ses
+sous espaces vectoriels sont des sous $R$-modules de $\mathfrak B/\mathfrak
+    B\mathfrak P_i$ et donc des ensembles de la forme $\mathfrak q/\mathfrak
+    B\mathfrak P_i$ avec $\mathfrak q$ un idéal de $R$ tel que $\mathfrak
+    B\mathfrak P_i\subset \mathfrak q\subset \mathfrak B$ mais la décomposition en
+idéaux premiers dans $R$ implique que $\mathfrak q=\mathfrak B\mathfrak P_i$ ou
+$\mathfrak q=\mathfrak B$ d'où le résultat. Enfin $R/\mathfrak P_i$ est de
+dimension $f_i$ sur $A/\mathfrak p$ et il y a $e_i$ espaces vectoriels de la
+forme $\mathfrak B/\mathfrak B\mathfrak P_i$ d'où le résultat. \\ \indent Pour
+la deuxième égalité on se place d'abord dans le cas ou $A$ est principal. Par
+le théorème 3.1.6. $R$ est alors un $A$-module libre de rang $n$ et une
+$A$-base de $R$ donne par réduction modulo $R\mathfrak p$ une $A/\mathfrak
+    p$-base de $R/R\mathfrak p$. On se ramène à ce cas en localisant $A$ et $R$ en
+$S=A\backslash\mathfrak p$. On note $A'=S^{-1}A$ et $R'=S^{-1}R$ les anneaux de
+fractions correspondants. On sait que $A'$ est un anneau principal possédant un
+unique idéal maximal $A'\mathfrak p$ et que $R'$ est la fermeture intégrale de
+$A'$ dans $L$. On a alors $[R'/R'\mathfrak p:A'/A'\mathfrak p]=n$ par le cas
+principal. De plus $R'$ est un anneau de Dedekind, $R'\mathfrak p$ se décompose
+donc en idéaux premiers. Remarquons que par 4.2.1. $\mathfrak P_i\cap
+    A\backslash\mathfrak p=\emptyset$ donc par 4.1.1. $R'\mathfrak P_i$ est un
+idéal premier non nul de $R'$. Enfin la décomposition de $R\mathfrak p$ dans
+$R$ donne directement $$R'\mathfrak p=\prod_{i=1}^q(R'\mathfrak P_i)^{e_i}.$$
+On applique alors la première partie de la preuve à $A'$ et $B'$ ce qui donne
+$$n=[R'/R'\mathfrak p:A'/A'\mathfrak p]=\sum_{i=1}^qe_i[R'/R'\mathfrak
+    P_i:A'/A'\mathfrak p]$$ mais $A'/A'\mathfrak p\cong A/\mathfrak p$ et
+$R'/R'\mathfrak P_i\cong R/\mathfrak P_i$ d'où $[R'/R'\mathfrak
+            P_i:A'/A'\mathfrak p]=f_i$ pour chaque $i$ puis le résultat voulu.\qed \\
+
+\begin{prop}
+    On a l'isomorphisme $$R/R\mathfrak p\cong \prod_{i=1}^qR/\mathfrak P_i^{e_i}$$
+\end{prop}
+
+\noindent Il suffit d'appliquer le lemme chinois sachant que $\mathfrak
+    P_i^{e_i}+\mathfrak P_j^{e_j}=R$ dès que $i\ne j$, en effet il est clair que le
+seul idéal maximal contenant $\mathfrak P_i^{e_i}$ est $\mathfrak P_i$. On
+rappelle l'énoncé du lemme.
+
+\begin{lem}
+    Soit $A$ un anneau, et $(\mathfrak a_i)_{i=1,...,q}$ une famille finie d'idéaux
+    de $A$ tels que $\mathfrak a_i+\mathfrak a_j=A$ dès que $i\ne j$. On a alors
+    l'isomorphisme $$A/\mathfrak a_1...\mathfrak a_q\cong \prod_{i=1}^r A/\mathfrak
+        a_i$$
+\end{lem}
+
+\subsection{Discriminant et Ramification}
+On garde les notations de 3.2.
+
+\begin{defn}
+    On dit que $\mathfrak p$, en tant qu'idéal de $A$, se ramifie dans $R$ (ou dans
+    $L$) si l'un des indices de ramification $e_i$ est plus grand que 1.
+\end{defn}
+
+\begin{defn}
+    On suppose que $K$ et $L$ sont des corps de nombres. On appelle idéal
+    discriminant de $R$ sur $A$ (ou de $L$ sur $K$), et on note $\mathfrak O_{R/A}$
+    (ou $\mathfrak O_{L/K})$ l'idéal de $A$ engendré par les discriminants des
+    bases de $L$ sur $K$ contenues dans $R$.
+\end{defn}
+
+\noindent Remarquons que cette définition coïncide avec 3.1.5. lorsque $R$ est
+un $A$-module libre, en effet une $K$-base de $L$ contenue dans $R$ est en
+particulier une famille libre de $R$ sur $A$ de rang $[L:K]$ donc le
+discriminant de cette base est associé dans $A$ à n'importe quelle base de $R$
+sur $A$ comme on l'a vu précédemment. De plus par 3.1.3. et 3.1.4. l'idéal
+discriminant est un idéal entier non nul de $A$.
+
+On énonce maintenant le résultat principal de cette partie qui permet de
+déterminer quels sont les idéaux de $A$ qui se ramifient dans $R$. On
+justifiera ensuite la définition d'idéal discriminant et on donnera une preuve
+de ce résultat.
+
+\begin{thm}
+    Un idéal premier $\mathfrak p$ de $A$ se ramifie dans $R$ si et seulement si
+    $\mathfrak p\mid \mathfrak O_{R/A}$
+\end{thm}
+
+\begin{cor}
+    L'ensemble des idéaux premiers $\mathfrak p$ de $A$ qui se ramifient dans $R$
+    est fini.
+\end{cor}
+
+\noindent Le corollaire est une conséquence immédiate du fait que $\mathfrak
+    O_{R/A}\ne(0)$ comme on l'a vu dans la dernière remarque.
+
+\begin{defn}
+    On dit qu'un anneau est réduit s'il n'a d'autre élément nilpotent que $0$.
+\end{defn}
+
+\noindent On remarque dans un premier temps que l'isomorphisme $R/R\mathfrak
+    p\cong \prod_{i=1}^qR/\mathfrak P_i^{e_i}$ définit de manière évidente une
+structure de $A/\mathfrak p$-algèbre de dimension finie sur $R/R\mathfrak p$.
+La condition $\mathfrak p$ se ramifie dans $R$ se réécrit donc $R/R\mathfrak p$
+est non réduite et on a le lemme suivant :
+
+\begin{lem}(Lemme 1)
+    Soit $F$ un corps fini ou de caractéristique 0 et $\mathfrak F$ une $F$-algèbre
+    de dimension finie sur $F$. Pour que $\mathfrak F$ soit réduite, il faut et il
+    suffit que $\mathfrak D_{\mathfrak F/F}\ne (0)$.
+\end{lem}
+
+\noindent Ici $\mathfrak D_{\mathfrak F/F}$ désigne le discriminant de
+$\mathfrak F$ sur $F$ au sens de 3.1.5.. On aura besoin des lemmes suivants :
+
+\begin{lem}
+    Soit $B$ un anneau noethérien réduit. Alors l'idéal $(0)$ est intersection
+    finie d'idéaux premiers.
+\end{lem}
+
+{\bf \noindent Preuve :} Par le lemme 3.2.3. $(0)$ est un produit d'idéaux
+premiers $\mathfrak p_1^{e_1}...\mathfrak p_q^{e_q}$. Soit alors $x\in\mathfrak
+    p_1\cap...\cap\mathfrak p_q$, on a $x^{e_1+\cdots+e_q}=0$ d'où $x=0$ car $B$
+est réduit.\qed
+
+\begin{lem}
+    Soient $A$ un anneau, $B_1$,...,$B_q$ des anneaux contenant $A$ qui sont des
+    $A$-modules libres de rang fini, et $B=\prod_{i=1}^qB_i$ leur anneau produit.
+    Alors $\mathfrak D_{B/A}=\prod_{i=1}^q\mathfrak D_{B_i/A}$.
+\end{lem}
+
+{\bf \noindent Preuve :} On se ramène au cas $q=2$ par récurrence. Soient alors
+$(x_1,...,x_m),(y_1,...,y_n)$ des $A$-bases de $B_1\times\{0\}$ et $\{0\}\times
+    B_2$, $(x_1,...,x_m,y_1,...,y_n)$ est alors une base de $B_1\times B_2$ et
+$Tr(x_iy_j)=Tr(0)=0$. D'où $D(x_1,...,x_m,y_1,...,y_n)$ s'écrit
+$$\begin{vmatrix}
+        Tr(x_ix_{i'}) & 0             \\
+        0             & Tr(y_jy_{j'})
+    \end{vmatrix}$$
+ce qui donne le résultat voulu.
+\\ \newline
+
+{\bf \noindent Preuve du lemme 1 :} Supposons d'abord $\mathfrak F$ non réduite
+et soit $x\in\mathfrak F$ un élément nilpotent non nul. On pose $x_1=x$ et on
+complète ce début de base en une base $(x_1,...,x_n)$ de $\mathfrak F$ sur $F$.
+Alors $x_1x_j$ est nilpotent, et ainsi la multiplication par $x_1x_j$ est un
+endomorphisme nilpotent qui a donc pour seule valeur propre $0$, d'où
+$Tr(x_1x_j)=0$ pour chaque $j$. La matrice $(Tr(x_ix_j))$ a donc une ligne
+nulle, d'où $\mathfrak D_{\mathfrak F/F}=(D(x_1,...,x_n))=(0)$.\\ \indent
+Réciproquement, supposons $\mathfrak F$ réduite. Alors
+$(0)=\bigcap_{i=1}^q\mathfrak P_i$ où les $P_i$ sont des idéaux premiers de
+$\mathfrak F$. Comme $\mathfrak F/\mathfrak P_i$ est une algèbre intègre de
+dimension finie sur $F$, c'est un corps. Donc $\mathfrak P_i$ est un idéal
+maximal de $\mathfrak F$, de sorte que $\mathfrak P_i~+~\mathfrak P_j=\mathfrak
+    F$ pour $i\ne j$. Ainsi $\mathfrak F$ est isomorphe au produit
+$\prod_{i=1}^q\mathfrak F/\mathfrak P_i$. On a donc $\mathfrak
+    D_{L/K}=\prod_{i=1}^q\mathfrak D_{(\mathfrak F/\mathfrak P_i)/K)}$ par 3.3.8..
+Or les $\mathfrak D_{(\mathfrak F/\mathfrak P_i)/K)}$ sont non nuls par 2.1.6.,
+d'où $D_{\mathfrak F/F}\ne 0$.\qed
+
+On peut donc réduire davantage la condition $\mathfrak p$ se ramifie dans $R$
+par $\mathfrak D_{(R/\mathfrak pR)/(A/\mathfrak p)}=0$ car $A/\mathfrak p$ est
+un corps fini. Or posons $S=A\backslash\mathfrak p$, $A'=S^{-1}A$, $R'=S^{-1}R$
+et $\mathfrak p'=\mathfrak pA'$. Alors $A'$ est un anneau principal, $R'$ est
+un $A'$-module libre, et on a $A/\mathfrak p\cong A'/\mathfrak p'$ et
+$R/\mathfrak pR\cong R'/\mathfrak p'R'$. En notant alors $(e_1,...,e_n)$ une
+base de $R'$ sur $A'$, la relation $\mathfrak D_{(R/\mathfrak pR)/(A/\mathfrak
+            p)}=0$ équivaut à $D(e_1,...,e_n)\in \mathfrak p'$. En effet il est clair que
+$D(\bar{e_1},...,\bar{e_n})=\overline{D(e_1,...,e_n)}$ où pour $x\in R'$,
+$\bar{x}$ désigne l'image de $x$ dans le quotient $R'/\mathfrak p'R'$ et
+$\overline{D(e_1,...,e_n)}$ désigne l'image dans le quotient $A'/\mathfrak
+    p'A'$ de $D(e_1,...,e_n)$. Ceci étant, si $D(e_1,...,e_n)\in\mathfrak p'$ et si
+$(x_1,...,x_n)$ est une base de $L$ sur $K$ contenue dans $R$, on a $x_i=\sum
+    a'_{ij}e_j$ avec $a'_{ij}\in A'$, d'où
+$D(x_1,...,x_n)=det(a_{ij})^2D(e_1,...,e_n)\in\mathfrak p'$. Comme $\mathfrak
+    p'\cap A=\mathfrak p$, on en déduit $D(x_1,...,x_n)\in \mathfrak p$ et
+$\mathfrak D_{R/A}\subset \mathfrak p$. Réciproquement, si $\mathfrak
+    D_{R/A}\subset\mathfrak p$, on a $D(e_1,...,e_n)\subset \mathfrak p'$ car on
+peut écrire $e_i=y_i/s$ avec $y_i\in R$ et $s\in S$ pour $1\leq i\leq n$. Ainsi
+$$D(e_1,...,e_n)=s^{-2}D(x_1,...,x_n)\in A'\mathfrak D_{R/A}\subset \mathfrak
+    pA'=\mathfrak p'$$ Ce qui conclut la preuve du théorème.\qed
+
+\section{Le théorème de Chebotarev }
+\indent Cette partie présente le théorème de Chebotarev et motive les
+prochaines parties. On appelle discriminant d'un polynôme le discriminant usuel
+obtenu à partir du résultant et on le note $\Delta(P)$. On a montré en 1.3 que
+toute progression arithmétique de la forme $a+bm$, $pgcd(a,b)=1$, contient une
+infinité de nombre premiers, c'est le théorème de la progression arithmétique
+de Dirichlet. Le théorème de Chebotarev en est une généralisation. Il a été
+d'abord conjecturé par Frobenius en tant que généralisation de son propre
+théorème que l'on va énoncer ici sans preuve afin d'introduire la substitution
+de Frobenius d'un nombre premier $p$.  \\  \indent Soit $P\in\Z[X]$ de
+discriminant non nul. Le polynôme $P$ définit une extension galoisienne $K$ de
+$\Q$ et son groupe de Galois $G$ peut être vu comme un sous-groupe de $S_n$ où
+$n=deg(P)$. On sait de plus que tout élément de $S_n$ se décompose en produit
+de cycles disjoint, par exemple la permutation $\sigma_1=(6)(7)(45)(123)\in
+    S_7$ est décomposée en produit de cycles disjoints. D'un autre côté pour $p$ un
+nombre premier tel que $p\nmid \Delta(P)$, $P$ mod $p$ se décompose en produit
+de facteurs irréductibles dont les degrés forment une partition de $n$. On
+introduit alors deux notations :
+
+\begin{defn}
+    On appelle type de $\sigma$, et on note $type(\sigma)$, la partition de $n$ à
+    laquelle elle correspond où on définit une partition de $n$ comme un t-uple
+    $$(i_1,...,i_k)\quad \textrm{  vérifiant}\quad i_j\leq i_l$$ pour tout $j\leq
+        l$ et $$\sum_{j=1}^{k}i_j=n.$$ On a alors $type(\sigma_1)=(1,1,2,3)$.
+\end{defn}
+
+\begin{defn}
+    On appelle type de $P$ par rapport à $p$, et on note $type(P,p)$, la partition
+    formée par les degrés des facteurs irréductibles de $P$ $mod~p$.
+\end{defn}
+Avec ces notations, le théorème de Frobenius s'énonce ainsi.
+
+\begin{thm}
+    Soit $\sigma\in G$. La densité des nombre premiers $p$ tels que
+    $type(P,p)=type(\sigma)$ existe et vaut $\frac{\mid T(\sigma)\mid}{\mid G\mid}$
+    où $T(\sigma)=\{\epsilon\in G\mid type(\epsilon)=type(\sigma)\}$.
+\end{thm}
+
+Le théorème de Frobenius affirme que la "proportion" de nombres premiers $p$
+tels que le type de $P$ par rapport $p$ est donnée est proportionnelle au
+nombre d'éléments de G ayant cette même décomposition. \\ \indent On aimerait
+maintenant savoir si cet énoncé implique celui de Dirichlet. Pour cela on peut
+tenter de trouver un polynôme $P$ tel que les éléments du groupe de Galois
+qu'il définit ne dépendent un à un que d'une classe $mod$ $p$. Prenons
+$P=X^{12}-1$, on exclut $p=2,3$ car $2,3\mid\Delta(P)$. On considère maintenant
+l'extension correspondant à $P$ de $F_p$ que l'on note $F_p(\alpha)$. Le type
+de $P$ par rapport à $p$ est entièrement déterminé par l'action de $Frob_p$, le
+morphisme de Frobenius, sur les racines de $P$. En effet on sait par la théorie
+de Galois que le groupe de Galois d'un polynôme agit transitivement sur ses
+facteurs irréductibles et que  $Gal(F_p(\alpha)/F_p)$ est engendré par
+$Frob_p$. En particulier, l'orbite de l'action de $Frob_p$ correspond à
+l'orbite de la multiplication par $p$ dans $\Z/12\Z$. D'où $type(P,p)$ ne
+dépend que de $p$ $mod$ $12$ et par un calcul rapide on a les types suivants
+$$\qquad\quad~~~ p\equiv 1~mod~12~:\qquad 1,1,1,1,1,1,1,1,1,1,1,1$$ $$~p\equiv
+    5~mod~12~:\qquad1,1,1,1,2,2,2,2$$ $$\quad~p\equiv
+    7~mod~12~:\qquad1,1,1,1,1,1,2,2,2$$ $$p\equiv
+    11~mod~12~:\qquad1,1,2,2,2,2,2$$Alors le théorème de Frobenius pour $X^{12}-1$
+implique le théorème de Dirichlet dans le cas $(a,12)$ tel que $pgcd(a,12)=1$.
+Mais si l'on tente de généraliser ce résultat on tombe par exemple sur le cas
+$X^{10}-1$ ou cette fois on obtient les types suivants
+$$\qquad\quad\quad~~p\equiv 1~mod~10~:\qquad1,1,1,1,1,1,1,1,1,1$$ $$p\equiv
+    3,7~mod~10~:\qquad 1,1,4,4$$ $$\quad p\equiv 1~mod~10~:\qquad1,1,2,2,2,2$$ Les
+cas $p\equiv 3~mod~10$ et $p\equiv 7~mod~10$ ne sont plus distingués donc le
+théorème de Frobenius pour $P=X^m-1$ n'implique par le théorème de Dirichlet.
+On va maintenant formuler une généralisation du théorème de Frobenius qui
+revient au théorème de Dirichlet dans le cas $X^m-1$.
+
+\subsection{Groupe de décomposition et groupe d'inertie}
+On utilise les mêmes notations que dans 3.1. Soit $A$ un anneau de Dedekind de
+caractéristique $0$, $K$ son corps des fractions, $L$ une extension galoisienne
+de degré $n$ de $K$, $G$ son groupe de Galois et $R$ la fermeture intégrale de
+$A$ dans $L$. Dans la suite, pour $\mathfrak p$ un idéal premier non nul de $A$
+et $\mathfrak P$ un idéal premier de $R$, on dira que $\mathfrak P\mid
+    \mathfrak p$ si $\mathfrak P$ apparaît dans la décomposition de $R\mathfrak p$
+dans $R$.
+
+\begin{prop}
+    Le groupe de Galois $G$ agit sur $I_e(R)$ l'ensemble des idéaux de $R$ par
+    \begin{align*}
+        G\times I_e(R) & \longrightarrow I_e(R)                        \\
+        (\sigma,I)~    & \longmapsto~ \sigma(I)=\{\sigma(x) : x\in I\}
+    \end{align*}
+\end{prop}
+{\bf \noindent Preuve :} Il suffit de remarquer que si $x\in R$ est entier sur
+$A$, $\sigma(x)$ aussi. Pour le voir on prend $P\in A[X]$ unitaire tel que
+$P(x)=0$. Alors $\sigma(P(x))=P(\sigma(x))=0$ d'où $\sigma(R)\subset R$.\qed \\
+
+\noindent En fait on a $\sigma(R)=R$ pour tout $\sigma\in G$. Il suffit
+d'appliquer le même raisonnement avec $\sigma^{-1}$, ce qui donne
+$\sigma^{-1}(R)\subset R$ puis $R\subset\sigma(R)$. De plus, si $\mathfrak p$
+est un idéal premier non nul de $A$ et $\mathfrak P\mid\mathfrak p$ alors
+$\sigma(\mathfrak P)\mid \mathfrak p$. En effet on applique $\sigma$ à la
+relation $\mathfrak P\cap A=\mathfrak p$ et le résultat est immédiat. On dira
+que $\mathfrak P$ et $\sigma(\mathfrak P)$ sont conjugués. On veut maintenant
+maintenant montrer que l'ensemble des $\mathfrak P$ tel que $\mathfrak P\mid
+    \mathfrak p$ n'est autre que l'ensemble des conjugués de $\mathfrak P$ :
+
+\begin{prop}
+    Soit $\mathfrak p$ un idéal premier non nul de $A$. Le groupe de Galois $G$
+    agit transitivement sur l'ensemble $\{\mathfrak P\mid \mathfrak p\}$.
+\end{prop}
+\noindent On aura besoin du lemme suivant :
+\begin{lem}
+    Soit $\mathfrak P_1,...,\mathfrak P_r$ des idéaux premiers de $R$ et $\mathfrak
+        b$ un idéal de $R$ tel que $\mathfrak b\not\subset \mathfrak P_i$ pour tout
+    $i$. Alors il existe $b\in\mathfrak b$ tel que $b\notin\mathfrak P_i$ pour tout
+    $i$.
+\end{lem}
+{\bf \noindent Preuve du Lemme :} On peut supposer que les $\mathfrak P_i$ sont
+tels que $\mathfrak P_i\not\subset\mathfrak P_j$ pour tout $i\ne j$, on peut
+supposer de plus que les $\mathfrak P_i$ sont maximaux. Soit
+$x_{ij}\in\mathfrak P_j$ tel  que $x_{ij}\notin\mathfrak P_i$. Comme $\mathfrak
+    b\not\subset\mathfrak P_i$, il existe $a_i\in \mathfrak b$ tel que $a_i\notin
+    \mathfrak P_i$ pour chaque $i$. On pose alors $$b_i=a_i\prod_{j\ne i}x_{ij}$$On
+a $b_i\in \mathfrak b$, $b_i\in\mathfrak P_j$ pour $j\ne i$ et $b_i\notin
+    \mathfrak P_i$ car sinon $a_i$ ou l'un des $x_{ij}$, $j\ne i$, serait dans
+$\mathfrak P_i$. On pose alors $b=b_1+b_2+...+b_q$, on a en notant
+$\pi_{\mathfrak P_i}$ la projection canonique de $R$ dans $R/\mathfrak P_i$
+:$$\pi_{\mathfrak P_i}(b)=\pi_{\mathfrak P_i}(b_i)\ne0$$ d'où le résultat.\qed
+\newline
+
+{\bf \noindent Preuve de la proposition :} Soit $\mathfrak P$ tel que
+$\mathfrak P\mid \mathfrak p$. supposons qu'il existe $\mathfrak P'$ tel que
+$\mathfrak P'\mid \mathfrak p$ et $\mathfrak P'$ n'est pas conjugué de
+$\mathfrak P$. On applique le lemme à $\sigma(\mathfrak P)$ et $\mathfrak P'$
+qui sont maximaux et distincts pour tout $\sigma\in G$. On obtient un élément
+$x\in\mathfrak P'$ tel que $x\notin\sigma(\mathfrak P')$ pour tout $\sigma\in
+    G$. On considère alors $$N(x)=\prod_{\sigma\in G}\sigma(x)$$ clairement
+$N(x)\in\mathfrak P'$ et par 2.1.5., $N(x)\in A$ donc $N(x)\in\mathfrak P'\cap
+    A=\mathfrak p$. D'autre part $x\notin\sigma^{-1}(\mathfrak P)$, d'où
+$\sigma(x)\notin \mathfrak P$ pour tout $\sigma\in G$. Comme $\mathfrak P$ est
+premier, on en déduit que $N(x)\notin\mathfrak P$, ce qui contredit
+$N(x)\in\mathfrak p$. \qed\newline
+
+\begin{cor}
+    Les idéaux premiers $\mathfrak P$ tels que $\mathfrak P\mid\mathfrak p$ ont
+    même indice de ramification et même degré résiduel.
+\end{cor}
+{\bf\noindent Preuve :} Soit $\mathfrak P_1$, $\mathfrak P_2$ tels que
+$\mathfrak P_1,\mathfrak P_2\in\{\mathfrak P\mid\mathfrak p\}$ et soit
+$\sigma\in G$ tel que $\mathfrak P_2=\sigma(\mathfrak P_1)$. La suite
+$$1\rightarrow\mathfrak P_1\rightarrow R\overset{\sigma}{\rightarrow}
+    R\rightarrow R/\mathfrak P_2\rightarrow 1$$ est exacte d'où $\mathfrak P_1$ et
+$\mathfrak P_2$ ont même degré résiduel. En plus $R/R\mathfrak p\cong
+    \prod_{\mathfrak P\mid\mathfrak p}R/\mathfrak P^{n_{\mathfrak p}(\mathfrak P)}$
+par 3.2.5. et si $\pi$ désigne la projection de $R$ sur $R/R\mathfrak p $,
+alors $\pi\circ\sigma$ permute les coordonnées des éléments du produit.
+Combiner ce dernier résultat avec l'identité $\sigma(\mathfrak
+    P_1^{n_{\mathfrak p}(\mathfrak P_1)})=\sigma(\mathfrak P_1)^{n_{\mathfrak
+            p}(\mathfrak P_1)}=\mathfrak P_2^{n_{\mathfrak p}(\mathfrak P_1)}$ permet alors
+de conclure sur les indices de ramification.\qed \newline
+
+\noindent On notera $e$ l'indice de ramification des $\mathfrak P$ tels que
+$\mathfrak P\mid\mathfrak p$ et $f$ leurs degrés résiduels. Alors en notant
+$q=\lvert\{\mathfrak P\mid\mathfrak p\}\rvert$, on a $n=efq$.
+
+\begin{defn}
+    Soit $\mathfrak P_1\in\{\mathfrak P\mid \mathfrak p\}$. On appelle groupe de
+    décomposition de $\mathfrak P_1$ et on note $D(\mathfrak P_1)$ le sous groupe
+    de $G$ formé des $\sigma$ tels que $\sigma(\mathfrak P_1)=\mathfrak P_1$.
+\end{defn}
+
+\noindent Pour $\sigma\in D(\mathfrak P)$ on peut définir un $A/\mathfrak
+    p$-automorphisme de $R/\mathfrak P$ que l'on note $\overline{\sigma}$ par
+$\overline{\sigma}(\overline{x}):=\overline{\sigma(x)}$, par définition de
+$D(\mathfrak P)$ on vérifie facilement que $\overline{\sigma}$ définit bien un
+$A/\mathfrak p$-automorphisme de $R/\mathfrak P$. On considère maintenant le
+morphisme de groupes $$\sigma\longmapsto \overline{\sigma}$$il a pour noyau
+l'ensemble des $\sigma\in D(\mathfrak P)$ tels que $\sigma(x)-x\in\mathfrak P$
+pour tout $x\in R$.
+
+\begin{defn}
+    On appelle groupe d'inertie de $\mathfrak P$ et on note $I(\mathfrak P)$ le
+    groupe $$I(\mathfrak P)=\{\sigma\in D(\mathfrak P)\mid \sigma(x)-x\in\mathfrak
+        P~\forall x\in\R\}$$
+\end{defn}
+\noindent C'est aussi le noyau du morphisme de groupe défini précédemment et
+donc un sous-groupe distingué de $D(\mathfrak P)$.
+
+\noindent On admet maintenant le résultat suivant qui est traité en [2] (chap
+6, p.106).
+
+\begin{prop}
+    L'extension $R/\mathfrak P$ de $A/\mathfrak p$ est galoisienne de degré $f$, de
+    groupe de Galois $D/I$.
+\end{prop}
+\begin{cor}
+    Pour que $\mathfrak p\in\mathfrak A(A)$ ne se ramifie pas dans $R$, il faut et
+    il suffit que le groupe d'inertie $I(\mathfrak P)$ soit réduit à l'identité.
+\end{cor}
+\noindent En effet, par la proposition 4.1.7. le groupe d'inertie à pour
+cardinal exactement l'indice de ramification de $\mathfrak p$. On peut
+maintenant introduire la substitution de Frobenius d'un idéal premier
+$\mathfrak p$.
+
+\subsection{La substitution de Frobenius}
+On garde les notations du chapitre précédent. Soit $\mathfrak p$ un idéal
+premier de $A$ qui ne se ramifie pas dans $R$ et $\mathfrak P$ un idéal premier
+de $R$ tel que $\mathfrak P\mid \mathfrak p$. Par 4.1.8. le groupe d'inertie de
+$\mathfrak P$ est trivial et donc le groupe de décomposition de $\mathfrak P$
+est canoniquement isomorphe au groupe de Galois $G'$ de $R/\mathfrak
+    P/A/\mathfrak p$. En notant $\bar{\pi}$ cet isomorphisme on définit maintenant
+la substitution de Frobenius.
+
+\begin{defn}
+    On appelle substitution de Frobenius de $\mathfrak p$ le générateur
+    $\sigma_{\mathfrak P}$ de $D(\mathfrak P)$ pour chaque $\mathfrak P\mid
+        \mathfrak p$, tel que $\bar{\pi}(\sigma)=(\bar{x}\mapsto \bar{x}^{N(\mathfrak
+            p)})$ est le générateur privilégié de $G'$. On la note alors $(\mathfrak P,
+        L/K)$.
+\end{defn}
+
+\begin{prop}
+    Soit $\sigma(\mathfrak P_1)=\mathfrak P$ pour $\sigma\in G$. Alors
+    $D(\mathfrak P)=\sigma D(\mathfrak P_1)\sigma^{-1}$.
+\end{prop}
+\noindent La substitution de Frobenius est alors définie à classe de
+conjugaison près et en particulier dans le cas où $G$ est abélien, celle-ci ne
+dépend que de $\mathfrak p$. On la note alors $(\mathfrak p, L/K)$. On
+considère maintenant $K\subset E\subset L$ une extension galoisienne
+intermédiaire de $L/K$, on a
+
+\begin{prop}
+    On note $f$ le degré résiduel de $\mathfrak P\cap E$ sur $K$. Alors
+    $$(\mathfrak P, L/E)=(\mathfrak P,L/K)^f$$ et $$(\mathfrak P\cap E,
+        E/K)=(\mathfrak P, L/K)\rvert_E$$
+\end{prop}
+{\bf \noindent Preuve :} On pourra se réferer à [2] (chap. 6, p.108) pour une
+preuve.\qed
+\newline
+
+\noindent On étudie maintenant le cas où $L/K$ est cyclotomique.
+
+\begin{prop}
+    Lorsque $L=K(\zeta)/K$ est cyclotomique avec $\zeta$ une racine $m$-ème de
+    l'unité, $(\mathfrak p, L/K)$ ne dépend que de la norme de $\mathfrak p$ modulo
+    $m$.
+\end{prop}
+{\bf \noindent Preuve :} Tout morphisme d'une extension cyclotomique est
+entièrement défini par son action sur $\zeta$. Ici $(\mathfrak p, L/K)$ envoie
+$\zeta$ sur $\zeta^{N(\mathfrak p)}$ et donc ne dépend que de l'orbite de
+$N(\mathfrak p)$ modulo $m$ d'où le résultat.\qed \newline
+
+\noindent Il est maintenant nécessaire de lier les notations $\Delta(P)$ et
+$\mathfrak O(L/K)$. Lorsque $\Delta(P)\ne 0$ et $L$ est le corps de
+décomposition de $P$ on a la proposition :
+\begin{prop}
+    $$\mathfrak O(L/K)=(\Delta(P)).$$
+\end{prop}
+
+\noindent On peut maintenant énoncer le théorème de Chebotarev.
+\begin{thm}
+    (théorème de densité de Chebotarev) Soit $P\in F[X]$ unitaire de discriminant
+    non nul, $K$ un corps de décomposition de $P$ et $\sigma\in G=Gal(K/F)$. La
+    densité de l'ensemble des idéaux premiers $\mathfrak p$ tels que
+    $\Delta(P)\not\subset\mathfrak p$ et tels qu'il existe $\mathfrak P\mid
+        \mathfrak p$ tel que $\sigma_{\mathfrak P}\in C(\sigma)$, où $C(\sigma)$ est la
+    classe de conjugaison de $\sigma$, existe et vaut $\frac{\mid
+            C(\sigma)\mid}{\mid G\mid}$.
+\end{thm}
+\noindent Remarquons Les idéaux premiers $\mathfrak p$ étant en nombre fini.
+Ceux-ci n'influent pas sur la densité voulue. La preuve du théorème nécessite
+de se placer dans le cas ou le corps de base n'est plus $\Q$ mais un corps de
+nombre $F$. La notion de densité utilisée en première partie n'est donc plus
+valable, on va donc considérer une nouvelle fonction zêta, la fonction zêta de
+Dedekind.
+
+\subsection{Fonctions L de Dirichlet généralisées}
+Soit $A$ l'anneau des entiers d'un corps de nombre $K$. On suppose ici connus
+les résultats usuels sur les valeurs absolues de corps de nombres. On note
+$M_K$ l'ensemble des valeurs absolues normalisées de $K$ i.e. telles que leur
+restriction à $\Q$ est une valeur absolue réelle usuelle ou une valeur absolue
+$p$-adique.
+
+\begin{defn}
+    On appelle $cycle$ de $K$ tout produit formel $$\mathfrak m=\prod_{M_K}
+        v^{m(v)}$$ où les $m(v)$ sont positifs et presque tous nuls.
+\end{defn}
+\noindent Si $m(v)>0$ pour $v$ réelle on se restreint au cas où $m(v)=1$. On
+utilisera la notation $\mathfrak m=\prod_{M_K\backslash
+        \{v_{\infty}\}}\mathfrak p^{m(\mathfrak p)}\times\mathfrak p_{\infty}$ où
+$\mathfrak p_{\infty}$ désigne la valeur absolue réelle. Lorsque
+$m(p_{\infty})=0$ on utilisera sans distinction la notation $\mathfrak m$ pour
+désigner l'idéal de $K$ correspondant. L'étude de la fonction zêta de Dedekind
+est un cas particulier de l'étude des fonctions $L$ de Dirichlet généralisées à
+un corps de nombres que l'on va parcourir ici. Soit $\mathfrak
+    m=\prod_{i=1}^q\mathfrak p_i^{e_i}$ un idéal de $A$. On appelle $I_{\mathfrak
+            m}(A)$ (resp. $P_{\mathfrak m}(A)$) le groupe des idéaux (resp. idéaux
+principaux) premiers à $\mathfrak m$. On rappelle que l'on a le théorème :
+
+\begin{thm}
+    Le groupe quotient $\dfrac{I(A)}{P(A)}$ est fini.
+\end{thm}
+
+\begin{cor}
+
+    On a $$I_{\mathfrak m}(A)/P_{\mathfrak m}(A)\cong I(A)/P(A)$$ et chaque classe
+    de $I_{\mathfrak m}(A)/P_{\mathfrak m}(A)$ admet un représentant entier.
+\end{cor}
+{\bf \noindent Preuve :} Il suffit de montrer que chaque classe de $I(A)/P(A)$
+à un représentant dans $I_{\mathfrak m}(A)$. Soit donc $\mathfrak K$ une classe
+de $I(A)/P(A)$ et $\mathfrak a\in \mathfrak K$, on peut le supposer entier. On
+commence, à l'aide du lemme chinois, par résoudre les congruences $$
+    \alpha\equiv p_i^{e_i}~mod~\mathfrak p^{e_i+1}$$ où les $p_i\in\mathfrak p_i$
+est premier pour chaque $i$. Alors $\mathfrak a(\alpha^{-1})\in I_{\mathfrak
+            m}(A)$ ce qui conclut la preuve. \qed \\
+
+\noindent On reprend maintenant la notation $\mathfrak m$ pour désigner
+$\mathfrak m\times v_{\infty}$. On note maintenant $P_{\mathfrak
+            m}:=P_{\mathfrak m}(A)$ lorsque aucune confusion n'est à craindre, de même pour
+$I_{\mathfrak m}(A)$. On considère maintenant le sous-groupe $P(\mathfrak m)$
+de $P_{\mathfrak m}$ dont les éléments sont ceux de $P_{\mathfrak m}$ tels que
+pour toute valeur absolue réelle $v$ induite par $\sigma_v\in G$ telle que
+$m(v)>0$ dans $\mathfrak m$. On a $\sigma_v(P(\mathfrak m))\subset \R^+$. On
+considère maintenant le quotient $I_{\mathfrak m}/P(\mathfrak m)$.
+\begin{thm}
+    Le groupe $I_{\mathfrak m}/P(\mathfrak m)$ est fini.
+\end{thm}
+{\bf \noindent Preuve :} La preuve peut être trouvée dans [3](chap. VI,
+p.127).\qed
+
+Il s'avère que ce groupe généralise la notion de progression arithmétique
+$mod~m$ à un corps de nombre quelconque et justifie l'appellation fonction $L$
+de Dirichlet généralisées.
+
+On considère $\chi$ un caractère du groupe abélien fini $I_{\mathfrak
+            m}/P(\mathfrak m)$
+\begin{defn}
+    Soit $I$ un idéal entier non nul de $A$. On appelle norme de $I$ et on note
+    $N(I)$ le nombre $card(A/I)$.
+\end{defn}
+
+\begin{prop}
+    La norme d'idéal est multiplicative.
+\end{prop}
+
+\begin{prop}
+    Soit $x\in A$, alors $\lvert N(x)\rvert=N(Ax)$, où $N(x)$ désigne la norme de
+    $x$ au sens de 2.1.4.
+\end{prop}
+
+\noindent On étend $\chi$ en un caractère de $I_{e}(A)$ de la même manière
+qu'en partie $1$.
+
+\begin{defn}
+    On appelle fonction $L$ de $K$ associée à $\chi$ la série
+    $$L(\chi,s)=\sum_{\mathfrak a}\dfrac{\chi(\mathfrak a)}{N(\mathfrak a)^s}$$ où
+    la somme parcourt les idéaux non nuls de $A$.
+\end{defn}
+\begin{defn}
+    On appelle fonction zêta de Dedekind de $K$ et on note $\zeta_K$ la série
+    $L(1,s)$.
+\end{defn}
+
+\noindent On cherche à déterminer $N(\mathfrak p)$ pour $\mathfrak p$ un idéal
+premier de $K$. On sait que pour $\mathfrak p$ un idéal premier de $A$,
+$\mathfrak p\cap \Z=p\Z$ pour un certain $p$ premier. On a vu en 3.2 que $A/Ap$
+est un $\Z/p\Z$-espace vectoriel de dimension finie égale à $[K:\Q]$. En
+particulier $A/Ap$ à pour cardinal $p^{[K:\Q]}$. Enfin
+$$N(Ap)=\prod_{i=1}^qN(\mathfrak p_i)^{e_i}$$ ou les $\mathfrak p_i$ sont par
+3.2.1. exactement les idéaux premiers tels que $\mathfrak p\cap \Z=p\Z$ d'où
+$N(\mathfrak p_i)=p^f_i$ avec $1\leq f_i\leq [K:\Q]$, $f_i$ est en fait par
+3.2.4. le degré résiduel de $\mathfrak p_i$ sur $\Z$. On peut maintenant
+prouver la proposition suivante :
+
+\begin{prop}
+    Pour tout caractère $\chi$ de $I_{\mathfrak m}/P(\mathfrak m)$. La fonction $L$
+    associée à $\chi$ converge absolument sur $D(1)$, y est holomorphe et on a
+    $$L(\chi, s)=\prod_{\mathfrak p}\dfrac{1}{1-\frac{\chi(\mathfrak
+                a)}{N(\mathfrak p)}}$$ où le produit parcourt les idéaux premiers non nuls de
+    $A$.
+\end{prop}
+
+{\bf \noindent Preuve :} On note log la branche principale du logarithme. On
+prend formellement le logarithme du produit $$f(s)=\prod_{\mathfrak
+        p}\dfrac{1}{1-\frac{\chi(\mathfrak a)}{N(\mathfrak p)}}$$ ce qui donne la série
+
+$$\textrm{log}(f(s))=\sum_{\mathfrak
+        p}\sum_{k=1}^{\infty}\dfrac{\chi(\mathfrak p)}{kN(\mathfrak p)^{-ks}}$$
+
+\noindent et on a
+
+$$\textrm{log}(f(s))=\sum_{\mathfrak
+        p}\sum_{k=1}^{\infty}\dfrac{\chi(\mathfrak p)}{kN(\mathfrak
+        p)^{-ks}}=\sum_{p}\sum_{\mathfrak p\in
+        E_p}\sum_{k=1}^{\infty}\dfrac{\chi(\mathfrak p)}{kN(\mathfrak p)^{-ks}}$$
+
+\noindent d'où
+
+$$\lvert \textrm{log}(f(s))\rvert\leq
+    \sum_{k,p}\dfrac{1}{kp^{k[K:\Q]Re(s)}}\leq [K:\Q]\times\textrm{log}(\zeta(s))$$
+
+\noindent dans $D(1)$ ce qui donne la convergence absolue et uniforme dans
+$D(1)$ du produit $$\prod_{\mathfrak p}\dfrac{1}{1-\frac{\chi(\mathfrak
+            p)}{N(\mathfrak p)}}=\textrm{exp}\Big(\sum_{\mathfrak
+            p}\sum_{k=1}^{\infty}\dfrac{\chi(\mathfrak p)}{kN(\mathfrak
+            p)^{-ks}}\Big).$$Par l'unique décomposition en idéaux premiers des idéaux de
+$A$, on montre ensuite l'égalité exactement de la même manière que pour le
+produit eulérien des fonctions $L$ de Dirichlet vue en 1.1.7.. \qed \\
+
+\noindent On voudrait maintenant montrer que $L(1,s)$ admet un pôle simple en
+$s=1$.
+
+\noindent On sait que chaque classe admet un représentant entier sur $A$. On
+commence donc par décomposer $L(\chi,s)$ en une somme finie
+$$L(\chi,s)=\sum_{\mathfrak K}L_{\mathfrak K}(\chi,s)$$ où la somme parcourt
+les classes $\mathfrak K$ de ${I_{\mathfrak m}}/{P(\mathfrak m)}$ et
+$\zeta_{\mathfrak K,K}(s)=\sum_{\mathfrak a\in\mathfrak K\cap
+        I_e(A)}\dfrac{1}{N(\mathfrak a)^s}$. On peut en fait se ramener à l'étude de la
+fonction zêta de Riemann.
+\begin{thm}
+    Soit $\mathfrak K$ une classe de ${I_{\mathfrak m}}/{P(\mathfrak m)}$. Si l'on
+    note $j(\mathfrak K,t)$ le nombre d'idéaux $\mathfrak a$ de $A$ tels que
+    $N(\mathfrak a)\leq t$ alors on a $$j(\mathfrak
+        K,t)=Ct+O(t^{1-(1/[K:\Q])}),~t\rightarrow \infty,$$ où $C>0$ est une constante
+    qui ne dépend que de $K$.
+\end{thm}
+
+\begin{cor}
+    La fonction zêta de $K$ a un pôle simple en $s=1$.
+\end{cor}
+\noindent La preuve est admise et traitée dans [3](chap. VIII p.161).
+
+\begin{cor}
+    On a $$\sum_{\mathfrak p\in P_K}1/N(\mathfrak
+        p)^s\sim_1\textrm{log}(\frac{1}{s-1})$$
+\end{cor}
+\noindent La preuve est la même que dans le cas $K=\Q$.\qed\\
+
+\begin{defn}
+    On définit alors la densité analytique sur le corps $K$ d'un ensemble $ P_1$
+    d'idéaux premiers de $K$ par la limite, si elle existe,
+    $$d(P_1)=\lim_{s\rightarrow 1, s>1}\big(\sum_{\mathfrak p\in
+                P_1}\frac{1}{N(\mathfrak p)^s}\big)/\textrm{log}(\frac{1}{s-1})$$
+\end{defn}
+
+\noindent On admet maintenant deux théorèmes sans preuves qui sont conséquences
+d'un théorème plus profond de la théorie du corps de classes que l'on énonce
+maintenant :
+\begin{thm}(Loi de réciprocité d'Artin)
+    On suppose que $L/K$ est abélienne. Il existe $H$ un sous-groupe du quotient
+    ${I_{\mathfrak m}}/{P(\mathfrak m)}$ tel que ${I_{\mathfrak m}}/H\cong
+        Gal(L/K)$ où l'isomorphisme est donné par $\mathfrak p\longmapsto (\mathfrak p,
+        L/K)$ en étendant ce morphisme aux idéaux fractionnaires par multiplicativité.
+\end{thm}
+\begin{thm}
+    Pour tout caractère $\chi\ne 1$ de ${I_{\mathfrak m}}/{P(\mathfrak m)}$, on a
+    $L(\chi,1)\ne 0$.
+\end{thm}
+
+\noindent On a alors le théorème de Dirichlet généralisé :
+\begin{cor}
+    On note $a_{\mathfrak m}=[I_{\mathfrak m}:P(\mathfrak m)]$ l'ordre du groupe
+    ${I_{\mathfrak m}}/{P(\mathfrak m)}$ et $\mathfrak K_0$ une de ses classes.
+    Alors $d(\mathfrak K_0\cap\mathfrak A(A))=1/a_{\mathfrak m}$.
+\end{cor}
+{\bf \noindent Preuve :} On procède exactement de la même manière que pour la
+preuve du théorème de Dirichlet en multipliant par $\chi(\mathfrak K_0^{-1})$
+les relations à la place de $\chi(a^{-1})$, les relations d'orthogonalité
+permettent alors de conclure. \qed \\ \newline En fait pour $P(\mathfrak
+    m)\subset H\subset I_{\mathfrak m}$ un sous-groupe de $I_{\mathfrak m}$ le
+résultat reste vrai en remplaçant $a_{\mathfrak m}$ par $h_{\mathfrak
+            m}=[I_{\mathfrak m}:H]$, en particulier pour $H$ tel que ${I_{\mathfrak
+                    m}}/H\cong Gal(L/K)$ ce qui donne la preuve du théorème de Chebotarev dans le
+cas abélien. Cependant, la preuve originale de Chebotarev n'utilise pas de
+théorie du corps de classes, on expose alors une partie de sa stratégie dans la
+prochaine partie.
+
+\subsection{Preuve du théorème}
+Soit $K$ un corps de nombres et $L$ une extension galoisienne finie de $K$. La
+preuve originale de Chebotarev est en trois partie. D'abord une réduction au
+cas où $L/K$ est abélienne, puis le cas particulier où $L/K$ est cyclotomique
+et enfin une résolution dans le cas abélien. On expose ici la première et la
+troisième partie du raisonnement. On pose $n=[L:K]$ et $G=Gal(L/K)$.\\ \newline
+
+{\bf \noindent Preuve :} Soit $\sigma\in G$, on note $E$ le sous corps de $L$
+fixé par $<\sigma>$ et $f$ l'ordre de $\sigma$. On veut montrer que le théorème
+est vrai pour $(L/K,C(\sigma))$ si et seulement si il est vrai pour $(L/E,
+    \{\sigma\})$. Soit $P_{L/K,\mathfrak m}(\sigma)$ l'ensemble des idéaux premiers
+$\mathfrak p$ de $K$ vérifiant l'hypothèse et premier à $\mathfrak m$. Soit de
+plus $\bar{P}_{L/K,\mathfrak m}(\sigma)$ l'ensemble des idéaux premiers de $L$
+tels que $\mathfrak P\mid \mathfrak p$ et $(\mathfrak P, L/K)=\sigma$ pour
+$\mathfrak p\in P_{L/K,\mathfrak m}(\sigma)$. Soit maintenant $P_{L/E,\mathfrak
+            m}'(\sigma)$ l'ensemble des idéaux premiers $\mathfrak q$ de $P_{L/E,\mathfrak
+            m}(\sigma)$ ayant comme degré résiduel $1$ sur $\mathfrak q\cap K$. Alors 
+            $\bar P_{L/K,\mathfrak m}(\sigma)$ et $P_{L/E,\mathfrak m}'(\sigma)$ sont en
+bijection. En effet par 4.2.3., $(\mathfrak P\cap E,E/K)=(\mathfrak
+    P,L/K)\rvert_E=\sigma\rvert_E$, mais par définition de $E$,
+$\sigma\rvert_E=id_E$. Donc $D(\mathfrak q)$ est réduit à l'identité, d'où le
+degré résiduel de $\mathfrak q$ sur $L$ est $1$. Si $N$ désigne le cardinal de
+$\{\mathfrak P\mid \mathfrak p\}$, on a alors d'un côté
+$$[L:K]=[L:E]\times[E:K]=f[E:K]$$ et de l'autre $$[L:K]=efN=fN$$ d'où $N=[L:K]$
+et l'assertion voulue. Mais $P_{L/E,\mathfrak m}'(\sigma)$ ne diffère de
+$P_{L/E,\mathfrak m}(\sigma)$ que par les idéaux premiers $\mathfrak q\mid
+    \mathfrak p$ étant ramifiés ou ayant degré résiduel $>1$ sur $\Q$, mais ceux-ci
+ont densité de Dirichlet $0$. Si on considère maintenant
+
+\[\rho~:~ P_{L/E,\mathfrak m}'(\sigma) \longmapsto P_{L/K,\mathfrak
+            m}'(\sigma)~;~
+    \mathfrak q \longmapsto \mathfrak q\cap K\]
+
+\noindent Alors $\rho$ est surjective et pour chaque $\mathfrak p\in
+    P_{L/K,\mathfrak m}(\sigma) $, $\rho^{-1}(\mathfrak p)\cong \{\mathfrak P\in
+    \bar P_{L/K,\mathfrak m}(\sigma)~;~ \mathfrak P\mid\mathfrak p\} $ par la
+bijection précédente. Mais si l'on note $Z(\sigma)=\{\tau\in
+    G~;~\tau\sigma=\sigma\tau\}$, alors $\{\mathfrak P\in \bar P_{L/K,\mathfrak
+            m}(\sigma)~;~ \mathfrak P\mid\mathfrak p\}$ a même cardinal que
+$Z(\sigma)/<\sigma>$. En effet les groupes de décomposition de $\mathfrak
+    P_1,\mathfrak P_2\in\{\mathfrak P\in \bar P_{L/K,\mathfrak m}(\sigma)~;~
+    \mathfrak P\mid\mathfrak p\}$ sont conjugués, disons $D(\mathfrak P_1)=\tau
+    D(\mathfrak P_2)\tau^{-1}$, donc $(\mathfrak P_1, L/K)=(\mathfrak P_2,L/K)$ si
+et seulement si $\tau$ commute avec $(\mathfrak P_2,L/K)$. Enfin on obtient
+alors $$d(P_{L/K,\mathfrak
+            m}(\sigma))=\dfrac{1}{[Z(\sigma):<\sigma>]}d(P_{L/E,\mathfrak m}'(\sigma))$$En
+supposant que le théorème de Chebotarev est vrai pour $L/E$ et $\sigma$ on
+obtient alors $$d(P_{L/K,\mathfrak m}(\sigma))=\dfrac{f}{\lvert
+        Z(\sigma)\rvert}\frac{1}{f}=\dfrac{\lvert C(\sigma)\rvert}{\lvert G\rvert}$$
+On peut donc se restreindre au cas ou $L/K$ est abélienne. Remarquons qu'avec
+la loi de réciprocité d'Artin, on a prouvé le théorème de densité de
+Chebotarev.
+
+\noindent La seconde partie de la méthode de Chebotarev consiste à résoudre le
+cas ou $L=K(\zeta)$, pour $\zeta$ une racine $m$-ème de l'unité tel que $(m)$
+est premier à $ \mathfrak O_{L/K}$. La preuve suit une démarche similaire à
+celle de Dirichlet qui est en fait le cas particulier $L=\Q(\zeta)$ et $K=\Q$.
+Cependant elle nécessite les fonctions $L$ d'Artin qui généralisent les
+fonctions $L$ abéliennes. Leur traitement étant assez technique on admet cette
+partie qui ne contient pas les idées clés de Chebotarev.
+\newline \newline
+\indent Par la première partie on peut supposer $L/K$ abélienne. Soit $m$ un
+nombre premier de $\N$ tel que $(m)$ est premier à $\mathfrak O_{L/K}$ et
+$\zeta$ une racine primitive $m$-ème de l'unité. Alors $H=Gal(K(\zeta)/K)\cong
+    (\Z/m\Z)^{\times}$ et $Gal(L(\zeta)/K)\cong G\times H$. Il est clair que si
+$\mathfrak p$ un idéal premier de $K$ a pour substitution $(\sigma,\tau)$ dans
+$G\times H$ alors il a pour substitution $\sigma$ dans $G$. Alors en notant
+$d_{inf}$ la quantité définie de la même manière que la densité en remplaçant
+la limite par une limite inférieure on a $$d_{inf}(P_{L/K,\mathfrak
+            m}(\sigma))\geq\sum_{\tau\in H}d_{inf}(P_{L(\zeta)/K}( (\sigma,\tau)))$$
+
+\noindent Soit maintenant $\sigma\in G$ et $\tau\in H$. On suppose que $n$
+divise l'ordre de $\tau$, alors $<(\sigma, \tau)>$ et $G\times\{1\}$ ont
+intersection triviale. En effet $(\sigma^k,\tau^k)=(\sigma',1)$ implique $n\mid
+    k$ d'où $\sigma^k=1$. Alors le sous corps $E$ de $K(\zeta)$ fixé par
+$<(\sigma,\tau)>$ vérifie $E(\zeta)=L(\zeta)$ de sorte que $E(\zeta)/L$ est
+cyclotomique. En effet l'extension $L(\zeta)/E.K(\zeta)$ a pour groupe de
+Galois $Gal(L(\zeta)/E)\cap Gal(L(\zeta)/K(\zeta))=\{id\}$. Par la deuxième
+partie, la densité $d(P_{L(\zeta)/E}( (\sigma,\tau))$ existe et à la valeur
+annoncée. Par la première partie c'est donc aussi le cas pour
+$d(P_{L(\zeta)/K}( (\sigma,\tau)))$ qui vaut alors $1/\lvert G\rvert\lvert
+    H\rvert$. En notant $H_n$ les éléments de $H$ d'ordre divisible par $n$ et en
+sommant sur $\tau$ de la même manière que dans l'inégalité précédente on
+obtient $$d_{inf}(P_{L/K,\mathfrak m}(\sigma))\geq \lvert H_n\rvert/\lvert
+    G\rvert\lvert H\rvert$$ mais par le théorème de Dirichlet on peut toujours
+trouver $m$ tel que $(m)$ est premier à $\mathfrak O_{L/K}$ et
+$m\equiv1~mod~n^k$ pour tout $k$ d'où en faisant varier $m$ sur ceux-ci on
+obtient $$d_{inf}(P_{L/K,\mathfrak m}(\sigma))\geq 1/\lvert G\rvert$$ On
+définit maintenant $d_{sup}$ comme la densité de Dirichlet où l'on remplace la
+limite par une limite supérieure. Le résultat étant vrai pour chaque $\sigma$
+et les $P_{L/K,\mathfrak m}(\sigma)$ étant disjoint on a $1\geq\sum_{\sigma\in
+        G}d_{inf}(P_{L/K,\mathfrak m}(\sigma))\geq\lvert G\rvert\times 1/\lvert
+    G\rvert$ d'où $d_{inf}(P_{L/K,\mathfrak m}(\sigma))=1/\lvert G\rvert$. Alors
+par définition de la densité et $$\sum_{\mathfrak p\in P_{L/K,\mathfrak
+                m}(\sigma)}\frac{1}{N(\mathfrak p)^s}/\textrm{log}(\frac{1}{s-1})$$ étant
+strictement décroissante sur $]1,+\infty[$, il suffit que la limite supérieure
+existe pour qu'elle coïncide avec la limite inférieure. Ce qui est clair, d'où
+$d(P_{L/K,\mathfrak m}(\sigma))$ existe et à la valeur annoncée.\qed \\
+
+\newpage
+
+{\bf Références :}\\
+$[1]$ Jean-Pierre Serre, Cours d'arithmétique, Presses Universitaires de
+France, 1994.\\
+$[2]$ Pierre Samuel, Théorie algébrique des nombres, Hermann, 1997.\\
+$[3]$ Serge Lang, Algebraic number theory, Springer-Verlag, New York, 1994.\\
+$[4]$ Jürgen Neukirch, Algebraic number theory, Springer-Verlag, Berlin,
+1999.\\
+$[5]$ P. Stevenhagen et H.W. Lenstra, Jr., \textit{Chebotarëv and his Density
+    Theorem}, \\https://www.math.leidenuniv.nl/~hwl/PUBLICATIONS/1996d/art.pdf
+
+\end{document}
