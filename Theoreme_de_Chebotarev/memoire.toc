@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}Le théorème de la progression arithmétique de Dirichlet}{4}{}%
+\contentsline {subsection}{\numberline {1.1}Séries de Dirichlet et fonction zêta}{5}{}%
+\contentsline {subsection}{\numberline {1.2}Fonctions L de Dirichlet}{11}{}%
+\contentsline {subsection}{\numberline {1.3}Le théorème de Dirichlet}{14}{}%
+\contentsline {subsection}{\numberline {1.4}Une application du théorème de Dirichlet}{15}{}%
+\contentsline {section}{\numberline {2}Anneaux d'entiers de corps de nombres}{16}{}%
+\contentsline {subsection}{\numberline {2.1}Anneaux d'entiers}{16}{}%
+\contentsline {subsection}{\numberline {2.2}Modules noethérien et anneau de Dedekind}{17}{}%
+\contentsline {section}{\numberline {3}Discriminant et ramification}{18}{}%
+\contentsline {subsection}{\numberline {3.1}Localisation dans un anneau de Dedekind}{18}{}%
+\contentsline {subsection}{\numberline {3.2}Décomposition des idéaux premiers dans une extension}{18}{}%
+\contentsline {subsection}{\numberline {3.3}Discriminant et Ramification}{20}{}%
+\contentsline {section}{\numberline {4}Le théorème de Chebotarev }{22}{}%
+\contentsline {subsection}{\numberline {4.1}Groupe de décomposition et groupe d'inertie}{24}{}%
+\contentsline {subsection}{\numberline {4.2}La substitution de Frobenius}{26}{}%
+\contentsline {subsection}{\numberline {4.3}Fonctions L de Dirichlet généralisées}{27}{}%
+\contentsline {subsection}{\numberline {4.4}Preuve du théorème}{30}{}%
