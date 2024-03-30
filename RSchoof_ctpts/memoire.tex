@@ -1,0 +1,105 @@
+\documentclass{article}
+
+\usepackage{graphicx, amsmath, latexsym, amsfonts,amssymb, amsthm,
+amscd, geometry, xspace, enumerate,mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\theoremstyle{definition}
+\newtheorem{boucle}[subsection]{Boucle}
+
+\theoremstyle{plain}
+\newtheorem{test}[subsubsection]{Test}
+\newtheorem{cas}[subsubsection]{Cas}
+
+\title{Algorithme de Schoof}
+\author{Bait Rayane}
+\date{Juin 2023}
+
+
+\begin{document}
+
+\maketitle
+    Un paradigme répandu en cryptographie consiste à utiliser des problèmes réputés "difficiles" pour construire des cryptosystèmes sur lesquels se basent la sécurité de ceux-ci. L'un de ces problèmes, le logarithme discret, nécessite simplement un groupe cyclique et sans structure additionnelle, on construit facilement l'un des cryptosystèmes les plus répandus, à savoir RSA. Cependant, pour assurer la sécurité pratique de ce système, il est nécessaire aujourd'hui de travailler avec des clés de taille $2^{2048}$, ce qui devient rapidement encombrant en plus de ralentir considérablement les opérations du groupe. C'est en 1985 que N. Koblitz et V. S. Miller suggérèrent alors l'utilisation de courbes elliptiques en cryptographie. Aujourd'hui, la sécurité fournie par une clé de 2048 bits avec RSA est la même qu'avec une clé de 224 bits et l'utilisation de courbes elliptiques. Cependant, la riche structure des courbes elliptiques apporte aussi son lot de failles potentielles. Il est alors nécessaire de choisir une courbe elliptique ayant de bons paramètres de sécurités. Il existe une heuristique qui affirme qu'il est facile de trouver une courbe elliptique ayant de bons paramètres si l'on sait que le nombre de points $\mathbb{F}_p$-rationnels est premier. L'algorithme de Schoof, qui est le premier algorithme déterministe de comptage de points rationnels d'une courbe elliptique tournant en temps polynomial fut une avancée théorique cruciale dans l'essor de la cryptographie par courbe elliptique. On se propose de décrire le cadre théorique de l'algorithme ainsi qu'une vue d'ensemble de son fonctionnement.
+
+\section{Idée et validité} 
+    \indent \indent Soit $\mathbb{F}_q$ un corps fini à $q$ éléments de caractéristique $p\ne 2,3$ et $\overline{\mathbb{F}}_q$ une clôture algébrique de $\mathbb{F}_q$. On considère $E/\mathbb{F}_q~:~Y^2=X^3+AX+B$ une courbe elliptique donnée par une équation de Weierstrass et on note $End(E)=Hom_{\overline{\mathbb{F}}_q}(E,E))$ l'anneau d'endomorphismes de $E$. Pour $p\nmid n$, on note $E[n]$ les points de $n$-torsion de $E$ à coordonnées dans $\overline{\mathbb{F}}_q$. On rappelle que l'on a une injection $\mathbb{Z}\hookrightarrow End(E)$, on notera donc librement par $[n]$ ou $n$ la multiplication par $n$ dans $E$. De plus, $E[n]\cong \mathbb{Z}/n\mathbb{Z}\times \mathbb{Z}/n\mathbb{Z}$ et lorsque $n=l$ est premier, on note $End(E[l])$ les endomorphismes de $E[l]$ en tant que $\mathbb{Z}/l\mathbb{Z}-$espace vectoriel.
+    
+    \indent L'idée de Schoof fut de mettre à profit un théorème de Hasse qui s'énonce comme suit : Soit $\Psi\in End(E)$ le morphisme de Frobenius. Il existe $t\in\mathbb{Z}$  tel que $$\Psi^2-t\Psi+q=0$$ avec $|t|\leq 2\sqrt{q}$ et $\#E(\mathbb{F}_q)=q+1-t$ où $E(\mathbb{F}_q)$ est l'ensemble des points de $E$ à coordonnées dans $\mathbb{F}_q$. On voit qu'il suffit de connaître $t$ pour connaître $\#E(\mathbb{F}_q)$. A partir de là, pour $l\ne p$ un nombre premier et $P\in E[l]$ on a $\Psi(P)\in E[l]$. Schoof considère alors dans $End(E[l])$ l'équation 
+\begin{flalign*}
+    && \Psi_l^2+q_l=t_l\Psi_l && (*)
+\end{flalign*} avec $t_l\equiv t~mod~l$, $\Psi_l=\Psi|_{E[l]}$ et  $q_l\equiv q~mod~l$. La stratégie de Schoof consiste alors à évaluer directement cette équation des deux cotés en faisant varier $t_l$ entre $0$ et $l-1$ jusqu'à obtenir une égalité. Les $t_l$ obtenus, Schoof applique enfin le lemme chinois pour obtenir $t$ ce qui conclut l'algorithme.\\
+\indent Le premier point important de l'algorithme est le fait que l'on a une manière explicite et efficace d'évaluer l'équation $(*)$ à l'aide des polynômes à division qui sont eux-mêmes calculables efficacement. Le second point est qu'à l'aide de la deuxième partie du théorème de Hasse on pourra se restreindre à un nombre petit de $l$ petits. En effet, on a $|t|\leq 2\sqrt{q}$, il nous faut donc une collection de $l$ premiers tels que $\prod l\geq 4\sqrt{q}$, à l'aide du théorème des nombres premiers on peut obtenir une constante $C$ independante de $L$ telle que $\prod_{2\leq l\leq L}l\geq Ce^L$ d'où $L=\mathcal{O}(log(q))$ et les $l$ premiers $\leq L$ sont en nombre $\mathcal{O}(log(q))$. 
+
+\section{Description}
+\indent \indent On suppose que la caractéristique $p$ est grande comparée aux autres quantités et on note à nouveau $E[n]$ l'ensemble des points de $n$-torsion à coefficients dans $\overline{\mathbb{F}}_q$. L'algorithme se divise en trois partie. La première consiste en le calcul et le stockage des polynômes à division : On définit $\phi_n(X,Y)\in \overline{\mathbb{F}}_q[X,Y]$ le $n$-ème polynôme à division par $$\phi_n(X,Y)^2=\prod_{P\in E[n]}(X-x(P))$$
+où $x(P)$ désigne la première coordonnée de $P$. L'équivalence $P\in E[n]\Leftrightarrow -P\in E[n]$ montre que le produit est un carré parfait et que les $\phi_n$ sont bien définis. En fait, si $2|n$, alors $\phi_n\in Y\overline{\mathbb{F}}_q[X]$, sinon $\phi_n\in\overline{\mathbb{F}}_q[X,Y]$. Pour $n\in\mathbb{N}$, la première coordonnée de $[n]$ définit une fonction régulière sur $E$ à savoir $x\circ[n]\in A(E)\cong \overline{\mathbb{F}}_q[X,Y]/I(E)$, où $A(E)$ est l'anneau de fonction de $E$ et $I(E)=(Y^2-X^3-AX-B)$. On rappelle que l'on suppose $n<p$. Soit $0\leq m<p$ un nombre entier. En étudiant les pôles et zéros de $x\circ [n]-x\circ[m]$ on obtient pour tout $P=(x,y)\in E(\overline{\mathbb{F}}_q)$ : $$x\circ [n]-x\circ[m]=-\frac{\phi_{n+m}(x,y)\phi_{n-m}(x,y)}{\phi_n^2(x,y)\phi_m^2(x,y)}$$ puis en posant $m=1$ on obtient une description explicite de la multiplication via $$x\circ [n]=x-\frac{\phi_{n+1}(x,y)\phi_{n-1}(x,y)}{\phi_n^2}(x,y)$$ Et d'une manière similaire, on peut obtenir $$y\circ [n]=\frac{\phi_{n+2}(x,y)\phi_{n-1}(x,y)^2-\phi_{n-2}(x,y)\phi_{n+1}(x,y)^2}{4y\phi_n(x,y)^3}$$ Enfin, en écrivant $x\circ [n]-x\circ [m]=x\circ [n]-x+(x-x\circ [m])$ on obtient en enlevant les dominateurs et en se plaçant dans $\overline{\mathbb{F}}_q[X,Y]$, une relation de récurrence pour calculer les $\phi_n$, à savoir $$2Y\phi_{2n}=\phi_n(\phi_{n+2}\phi_{n-1}^2-\phi_{n-2}\phi_{n+1}^2)$$
+et $$\phi_{2n+1}=\phi_{n+2}\phi_n^3-\phi_{n-1}\phi_{n+1}^3$$
+La complexité de ce test est dominée à chaque étape de la boucle imbriquée par le calcul des puissances $q$-ème dans $\mathbb{F}_q[X,Y]/(I(E)+\phi_l(X,Y))$ qui est donnée par $\mathcal{O}(log(q)^7)$, le test ayant $\mathcal{O}(log(q))$ étapes, on obtient une complexité de $\mathcal{O}(log(q)^8)$ pour le test complet.\\ \indent Une fois la boucle terminée on a obtenu une collection de $t_l\equiv t~mod~l$ et la troisième étape consiste à appliquer le lemme chinois pour obtenir $t$ . La complexité de cette étape est largement dominée par le reste de l'algorithme. 
+où $\phi_n$ désigne $\phi_n(X,Y)\in\overline{\mathbb{F}}_q[X,Y]/I(E)$. A partir de $\phi_0=0$, $\phi_1=1$, $\phi_2=2Y$, $$\phi_3=3X^4+6AX^2+12BX-A^2,$$ $$\phi_4=4Y(X^6+5AX^4+ 20BX^3-5A^2X^2-4ABX-8B^2-A^3)$$ on peut obtenir tout les polynômes à division et on remarque en particulier que pour tout $ n,~\phi_n\in\mathbb{F}_q[X,Y]$ et $deg(\phi_n)=(n^2-1)/2$. La complexité du calcul des $\phi_n$ de $1$ à $\mathcal{O}(log(q))$ consiste en $\mathcal{O}(log(q))$ étape avec $\mathcal{O}(1)$ multiplication dans $\mathbb{F}_q[X,Y]$. L'extension $\mathbb{F}_q/\mathbb{F}_p$ est donnée par un polynôme de degré $log_p(q)=\mathcal{O}(log(q))$ d'où la complexité de cette étape est de $\mathcal{O}(log(q))$.\\ \indent Une fois les polynômes à division obtenus, il reste à évaluer l'équation $(*)$. On commence par décrire l'addition sur $E$ : si $P=(x_1, y_1),~Q=(x_2,y_2)\in E$ on note $R=P+Q=(x_3, y_3)$. On rappelle que $R$ est défini comme $-PQ$ où $PQ$ est le troisième point d'intersection de la droite passant par $P$ et $Q$ avec $E$ et où $-P=(x_1, -y_1)$. On a trois cas à traiter. Si $P=-Q$, alors $P+Q=O$. Si $P=Q\ne -Q$, on calcule $2P$ avec la tangente à $E$ en $P$ qui a pour pente $\lambda=\frac{3x_1^2+A}{2y_1}$, si $P\ne \pm Q$ la droite passant par $P$ et $Q$ a pour pente $\lambda=\frac{y_1-y_2}{x_1-x_2}$. En remplacant $Y=\lambda X+\nu$ dans l'équation de $E$ et en regardant le terme de degré 2 on obtient dans tous les cas $\lambda^2=x_3+x_2+x_1$ d'où $x_3=\lambda^2-x_2-x_3$ et $y_3=\lambda(x_1-x_3)-y_1$. On peut maintenant écrire explicitement $(*)$.\\ 
+\begin{boucle}
+ On a une première boucle sur la collection de nombres premiers. Soit donc $l$ un nombre premier $\leq L$ et $k\equiv q~mod~l$. Il est nécessaire de distinguer les cas où il existe $P\in E(l)$ tel que $\phi_l^2P=\pm [k]P$ ou non. Il suffit de tester sur la première coordonnée si l'on a un point $P\in E[l]$: $$x(P)^{q^2}=x(P)-\frac{\phi_{k-1}(P)\phi_{k+1}(P)}{\phi_{k}(P)^2}$$
+On peut effectuer ce test de la manière suivante
+\begin{test}
+Dans $\mathbb{F}_q[X,Y]/(I(E),\phi_l(X,Y))$, on calcule $$PGCD((X^{q^2}-X)\phi_k+\phi_{k-1}\phi_{k+1},~\phi_l)$$  Si le PGCD est $\ne 1$ on est dans le premier cas et on utilise l'addition générale, dans l'autre cas, on a deux possibilités.
+\end{test} Si $\phi_l^2P=-[k]P$ alors clairement $t_l=0~mod~l$. Si $\phi_l^2P=[k]P$, alors $$[2k]P=\phi_lP-[k]P+2[k]P=[t_l]\phi_lP$$ d'où $det[2k/t_l]=det(\phi_l)$ ou $4k^2/t_l^2=k~mod~l$ puis $4k\equiv t_l^2~mod~l$. En prenant $w$ une racine de $k~mod~l$, on teste si $\phi_lP=[2w^2/(2t_l)]P$, c'est à dire via la remarque précédente si $w$ où $-w$ est une valeur propre de $\phi_l$. Le test s'effectue par un calcul de PGCD de la même manière que le premier test \begin{test}
+    On peut résumer le second test de la même manière que le test 2.1.1., en écrivant $X\circ(\Psi_l-[w])$ sans dénominateur dans $\mathbb{F}_q[X,Y]/(I(E)+\phi_l(X,Y))$ puis en prenant le pgcd du polynôme obtenu avec $\phi_l$. Si le pgcd est vaut $1$, alors  $t_l\equiv0~mod~l$. Sinon, on écrit de même $Y\circ(\Psi_l-[w])$ dans $\mathbb{F}_q[X,Y]/(I(E)+\phi_l(X,Y))$ et on prend le pgcd du polynôme obtenu avec $\phi_l$, si celui ci est $\ne1$ alors $t_l\equiv 2w~mod~l$. Sinon $t_l\equiv -2w~mod~l$.
+\end{test}
+On obtient $t_l\equiv2w~mod~l$, $t_l\equiv-2w~mod~l$ où $t_l\equiv0~mod~l$. La complexité de cette étape est dominée par le calcul de puissances $q^2$-ème qui dans $\mathbb{F}_q[X,Y]/(I(E)+\phi_l(X,Y))$, sachant que $deg(\phi_l)=\mathcal{O}(l^2)$ et $l\leq\mathcal{O}(log(q))$ à une complexité $\mathcal{O}(deg(\phi_l)^2log(q)^3)=\mathcal{O}(log(q)^7)$. 
+On revient maintenant sur le second cas qui dominera en complexité le reste de l'algorithme.\\
+\end{boucle}
+\begin{boucle} On boucle donc sur $0\leq\tau<l$ et on évalue $\phi_l^2+[k]=\tau\phi_l$, on a pour $P=(x,y)\in E[l]$ : $$\Psi_l^2P+[k]P=\left(\lambda^2-x^{q^2}-\left(x-\frac{\phi_{k-1}\phi_{k+1}}{\phi_k^2}\right), \lambda\left(x^{q^2}-\left(\lambda^2-x^{q^2}-\left(x-\frac{\phi_{k-1}\phi_{k+1}}{\phi_k^2}\right)\right)\right)-y^{q^2}\right)$$à gauche avec $\lambda=\frac{\phi_{k+2}\phi_{k-1}^2-\phi_{k-2}\phi{k+1}^2-4y^{q^2+1}\phi_{k}}{4\phi_ky\left((x-x^{q^2})-\phi_{k-1}\phi_{k+1}\right)}$ et à droite $$\tau\Psi_lP=\left(x^q-\left(\frac{\phi_{\tau-1}\phi_{\tau+1}}{\phi_{\tau}^2}\right)^q,~\left(\frac{\phi_{\tau+2}\phi_{\tau-1}^2-\phi_{\tau-2}\phi_{\tau+1}^2}{4y\phi_{\tau}^3} \right)^q\right)$$où $\phi_k=\phi_k(x,y)$. 
+Si il existe un seul $P\in E(\overline{\mathbb{F}}_q)$ alors $\tau\equiv t_l~mod~l$. Pour tester si un $P$ vérifie $(*)$ on peut alors enlever les dénominateurs pour obtenir un polynôme et voir si l'expression modulo $\phi_l$ vaut $0$ ce qui dirait que $\tau\equiv t_l~mod~l$. Autrement dit :
+\begin{test}
+    Dans $\mathbb{F}_q[X,Y]/(I(E)+\phi_l(X,Y))$, On calcule $X\circ(\Psi_l^2+[k]-\tau\Psi_l)$ en enlevant les dénominateurs. Si le polynôme obtenu est non nul, on recommence avec $\tau+1$. Sinon, on calcule $Y\circ(\Psi_l^2+[k]-\tau\Psi_l)$ auquel on a enlevé les dénominateurs, si le résultat vaut $0$, alors $t_l\equiv\tau~mod~l$. Sinon $t_l\equiv -\tau~mod~l$.
+\end{test}
+La complexité de ce test est dominée à chaque étape de la boucle imbriquée par le calcul des puissances $q$-ème dans $\mathbb{F}_q[X,Y]/(I(E)+\phi_l(X,Y))$ qui est donnée par $\mathcal{O}(log(q)^7)$, le test ayant $\mathcal{O}(log(q))$ étapes, on obtient une complexité de $\mathcal{O}(log(q)^8)$ pour le test complet.\\ \indent Une fois la boucle terminée on a obtenu une collection de $t_l\equiv t~mod~l$ et la troisième étape consiste à appliquer le lemme chinois pour obtenir $t$ . La complexité de cette étape est largement dominée par le reste de l'algorithme. 
+La complexité de ce test est dominée à chaque étape de la boucle imbriquée par le calcul des puissances $q$-ème dans $\mathbb{F}_q[X,Y]/(I(E)+\phi_l(X,Y))$ qui est donnée par $\mathcal{O}(log(q)^7)$, le test ayant $\mathcal{O}(log(q))$ étapes, on obtient une complexité de $\mathcal{O}(log(q)^8)$ pour le test complet.\\ \indent Une fois la boucle terminée on a obtenu une collection de $t_l\equiv t~mod~l$ et la troisième étape consiste à appliquer le lemme chinois pour obtenir $t$ ce qui conclut l'algorithme. La complexité de cette étape est largement dominée par le reste de l'algorithme. On calcule enfin la complexité totale de l'algorithme qui est dominée par le test 2.2.1. que l'on répète au plus $\mathcal{O}(log(q))$ d'où l'algorithme a pour complexité totale de $\mathcal{O}(log(q)^9)$.
+\end{boucle}
+
+On conclut par l'algorithme en lui-même :
+\begin{algorithm}
+    \caption{Algorithme de Schoof} \label{alg:cap}
+    \begin{algorithmic}
+        \Require Un corps $\mathbb{F}_q$ et les coefficients $A, B\in \mathbb{F}_q$ d'une courbe elliptique $E/\mathbb{F}_q~:~Y^2=X^3+AX+B$
+        \Ensure le cardinal de $E(\mathbb{F}_q)$
+        \State $m\gets 4\sqrt{q}$
+        \State $primes\gets \{2\leq l~premiers~tels~que~\prod l>m\}$
+        \State $\Phi\gets \{\phi_n,~1\leq n\leq L\}$ \Comment{Tableau des polynômes à division}
+        \State $T\gets 1$
+        \For{$l\in primes$}
+        \State $k\gets q~mod~l$
+            \If{$\exists P~x\circ(\Psi^2(P))=x\circ([k](P)$} \Comment{Premier cas}
+                \If{$\left(\frac{k}{l}\right)=1$}
+                \State $w\gets \sqrt{k}~mod~l$
+                    \If{$\exists P~x\circ\Psi(P)=[w]P $}
+                        \If{$\exists~P~ y\circ\Psi(P)=[w]P$}
+                        \State $T\gets \{t_l=2w\}$
+                        \Else
+                        \State $T\gets \{t_l=-2w\}$
+                        \EndIf
+                    \Else 
+                    \State $T\gets\{t_l=0\}$
+                    \EndIf
+                \Else 
+                \State $T\gets \{t_l=0\}$
+                \EndIf
+            \Else \Comment{Second cas}
+            \For{$\tau=0~$\textbf{to}$~\frac{l-1}{2}$}
+                \If{$\forall P,~x\circ(\Psi_l^2+[k])(P)=x\circ\tau\circ\Psi_l(P)$}
+                    \If{$\forall P,~y\circ(\Psi_l^2+[k])(P)=y\circ\tau\circ\Psi_l(P)$}
+                    \State $T\gets\{t_l=\tau\}$
+                    \Else
+                    \State $T\gets\{t_l=-\tau\}$
+                    \EndIf
+                \EndIf
+            \EndFor
+            \EndIf 
+        \EndFor
+        \State $t\gets CRT(T, primes)$ \Comment{Lemme chinois}
+    \end{algorithmic}
+    \Return $q+1-t$
+\end{algorithm}
+
+\end{document}
+
